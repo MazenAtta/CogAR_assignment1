@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from std_msgs.msg import String
-from Speaker.srv import Speaker, SpeakerRequest
+from assignment1.srv import Speaker, SpeakerRequest
 
 class TriageSystemNode:
     def __init__(self):

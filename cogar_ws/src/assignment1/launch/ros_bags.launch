@@ -1,19 +1,19 @@
 <launch>
     <!-- Launch the depth_raw.bag -->
-    <node pkg="rosbag" type="play" name="play_depth_raw" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/depth_raw.bag" />
+    <node pkg="rosbag" type="play" name="play_depth_raw" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/depth_raw.bag" />
 
     <!-- Launch the force_sensor.bag -->
-    <node pkg="rosbag" type="play" name="play_force_sensor" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/force_sensor.bag" />
+    <node pkg="rosbag" type="play" name="play_force_sensor" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/force_sensor.bag" />
 
     <!-- Launch the odometry.bag -->
-    <node pkg="rosbag" type="play" name="play_odometry" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/odometry.bag" />
+    <node pkg="rosbag" type="play" name="play_odometry" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/odometry.bag" />
 
     <!-- Launch the rgb_raw.bag -->
-    <node pkg="rosbag" type="play" name="play_rgb_raw" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/rgb_raw.bag" />
+    <node pkg="rosbag" type="play" name="play_rgb_raw" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/rgb_raw.bag" />
 
     <!-- Launch the scan_lidar.bag -->
-    <node pkg="rosbag" type="play" name="play_scan_lidar" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/scan_lidar.bag" />
+    <node pkg="rosbag" type="play" name="play_scan_lidar" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/scan_lidar.bag" />
 
     <!-- Launch the sonar.bag -->
-    <node pkg="rosbag" type="play" name="play_sonar" args="/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/sonar.bag" />
+    <node pkg="rosbag" type="play" name="play_sonar" args="--loop /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/bags/sonar.bag" />
 </launch>
