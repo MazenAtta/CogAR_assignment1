@@ -13,22 +13,21 @@ class StructuralRiskAssessmentNode:
         rospy.loginfo("Node initialized. Waiting for assessment request...")
 
         # Flags to simulate data acquisition
-        self.depth_data = None
-        self.rgb_data = None
         self.force_data = None
-        self.lidar_data = None
-        self.sonar_data = None
+        self.odom_data = None
 
         # Sensor subscriptions
-        rospy.Subscriber('/xtion/depth/image_raw', Image, self.depth_camera_callback)
-        rospy.Subscriber('/xtion/rgb/image_raw', Image, self.rgb_camera_callback)
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
-        rospy.Subscriber('/scan', LaserScan, self.lidar_callback)
-        rospy.Subscriber('/sonar_base', Range, self.sonar_callback)
         rospy.Subscriber('/mobile_base_controller/odom', odometry, self.odom_callback)
-
+        
+        # Subscribe to sensor fusion component
+        rospy.Subscriber('/sensor_fusion', FusedData, self.sensor_fusion_callback)
 
         self.assessment_done = False
+
+        # Rate for the main loop
+        self.rate = rospy.Rate(1)  # 1 Hz loop
+
 
         while not rospy.is_shutdown():
             if self.ready_for_assessment() and not self.assessment_done:
@@ -36,29 +35,21 @@ class StructuralRiskAssessmentNode:
                 self.assessment_callback()
             self.rate.sleep()
 
-    def depth_camera_callback(self, msg):
-        self.depth_data = msg
-
-    def rgb_camera_callback(self, msg):
-        self.rgb_data = msg
-
     def force_sensor_callback(self, msg):
         self.force_data = msg
 
-    def lidar_callback(self, msg):
-        self.lidar_data = msg
-
-    def sonar_callback(self, msg):
-        self.sonar_data = msg
-
     def odom_callback(self, msg):
         self.odom_data = msg
+    
+    def sensor_fusion_callback(self, msg):
+        # Process the sensor fusion output
+        self.fused_data = msg
 
     def assessment_callback(self):
         rospy.loginfo("Received assessment request.")
-        self.acquire_data()
-        fused_data = self.sensor_fusion()
-        if self.identify_cracks(fused_data):
+        
+        processed_data = self.process_data()
+        if self.identify_cracks(processed_data):
             risk_level = self.classify_risk()
             if risk_level >= 0.7:
                 self.send_alert()
@@ -69,13 +60,8 @@ class StructuralRiskAssessmentNode:
         else:
             rospy.loginfo("No cracks detected.")
 
-    def acquire_data(self):
-        # Simulate data acquisition
-        rospy.loginfo("Acquiring sensor data... [Dummy LIDAR, RGB, Depth, Sonar, Force]")
-        return "sensor_data"
-
-    def sensor_fusion(self):
-        rospy.loginfo("Sending sensor data to the sensor fusion..")
+    def process_data(self):
+        rospy.loginfo("Processing data coming from sensor fusion node and force sensor...")
         return "processed_data"
 
     def identify_cracks(self, data):
@@ -87,7 +73,7 @@ class StructuralRiskAssessmentNode:
         return 0.8  # Dummy risk level
 
     def send_alert(self):
-        rospy.logwarn("⚠ High Risk Detected! Sending Alert to Operator.")
+        rospy.logwarn("High Risk Detected! Sending Alert to Operator.")
 
     def move_closer(self):
         rospy.loginfo("Requesting Path Planner to move closer...")
