@@ -497,6 +497,32 @@ assignment1_generate_messages/fast:
 .PHONY : assignment1_generate_messages/fast
 
 #=============================================================================
+# Target rules for targets named _assignment1_generate_messages_check_deps_fusion
+
+# Build rule for target.
+_assignment1_generate_messages_check_deps_fusion: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _assignment1_generate_messages_check_deps_fusion
+.PHONY : _assignment1_generate_messages_check_deps_fusion
+
+# fast build rule for target.
+_assignment1_generate_messages_check_deps_fusion/fast:
+	$(MAKE) $(MAKESILENT) -f assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/build.make assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/build
+.PHONY : _assignment1_generate_messages_check_deps_fusion/fast
+
+#=============================================================================
+# Target rules for targets named _assignment1_generate_messages_check_deps_SensorFusion
+
+# Build rule for target.
+_assignment1_generate_messages_check_deps_SensorFusion: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _assignment1_generate_messages_check_deps_SensorFusion
+.PHONY : _assignment1_generate_messages_check_deps_SensorFusion
+
+# fast build rule for target.
+_assignment1_generate_messages_check_deps_SensorFusion/fast:
+	$(MAKE) $(MAKESILENT) -f assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/build.make assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/build
+.PHONY : _assignment1_generate_messages_check_deps_SensorFusion/fast
+
+#=============================================================================
 # Target rules for targets named _assignment1_generate_messages_check_deps_Speaker
 
 # Build rule for target.
@@ -652,7 +678,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... _assignment1_generate_messages_check_deps_SensorFusion"
 	@echo "... _assignment1_generate_messages_check_deps_Speaker"
+	@echo "... _assignment1_generate_messages_check_deps_fusion"
 	@echo "... assignment1_gencpp"
 	@echo "... assignment1_generate_messages"
 	@echo "... assignment1_generate_messages_cpp"

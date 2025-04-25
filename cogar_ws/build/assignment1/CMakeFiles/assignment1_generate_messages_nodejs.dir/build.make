@@ -66,17 +66,31 @@ include assignment1/CMakeFiles/assignment1_generate_messages_nodejs.dir/compiler
 # Include the progress variables for this target.
 include assignment1/CMakeFiles/assignment1_generate_messages_nodejs.dir/progress.make
 
+assignment1/CMakeFiles/assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/fusion.js
+assignment1/CMakeFiles/assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/SensorFusion.js
 assignment1/CMakeFiles/assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv/Speaker.js
+
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/SensorFusion.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/SensorFusion.js: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from assignment1/SensorFusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg
+
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/fusion.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/fusion.js: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from assignment1/fusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg
 
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv/Speaker.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv/Speaker.js: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from assignment1/Speaker.srv"
-	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from assignment1/Speaker.srv"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv
 
 assignment1/CMakeFiles/assignment1_generate_messages_nodejs.dir/codegen:
 .PHONY : assignment1/CMakeFiles/assignment1_generate_messages_nodejs.dir/codegen
 
 assignment1_generate_messages_nodejs: assignment1/CMakeFiles/assignment1_generate_messages_nodejs
+assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/SensorFusion.js
+assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/msg/fusion.js
 assignment1_generate_messages_nodejs: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/gennodejs/ros/assignment1/srv/Speaker.js
 assignment1_generate_messages_nodejs: assignment1/CMakeFiles/assignment1_generate_messages_nodejs.dir/build.make
 .PHONY : assignment1_generate_messages_nodejs

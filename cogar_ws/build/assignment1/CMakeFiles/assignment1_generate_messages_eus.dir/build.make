@@ -66,6 +66,8 @@ include assignment1/CMakeFiles/assignment1_generate_messages_eus.dir/compiler_de
 # Include the progress variables for this target.
 include assignment1/CMakeFiles/assignment1_generate_messages_eus.dir/progress.make
 
+assignment1/CMakeFiles/assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/fusion.l
+assignment1/CMakeFiles/assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/SensorFusion.l
 assignment1/CMakeFiles/assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv/Speaker.l
 assignment1/CMakeFiles/assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/manifest.l
 
@@ -73,16 +75,28 @@ assignment1/CMakeFiles/assignment1_generate_messages_eus: /home/mazenatta/Deskto
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp manifest code for assignment1"
 	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1 assignment1 std_msgs
 
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/SensorFusion.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/SensorFusion.l: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from assignment1/SensorFusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg
+
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/fusion.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/fusion.l: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from assignment1/fusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg
+
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv/Speaker.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv/Speaker.l: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from assignment1/Speaker.srv"
-	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from assignment1/Speaker.srv"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv
 
 assignment1/CMakeFiles/assignment1_generate_messages_eus.dir/codegen:
 .PHONY : assignment1/CMakeFiles/assignment1_generate_messages_eus.dir/codegen
 
 assignment1_generate_messages_eus: assignment1/CMakeFiles/assignment1_generate_messages_eus
 assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/manifest.l
+assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/SensorFusion.l
+assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/msg/fusion.l
 assignment1_generate_messages_eus: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/roseus/ros/assignment1/srv/Speaker.l
 assignment1_generate_messages_eus: assignment1/CMakeFiles/assignment1_generate_messages_eus.dir/build.make
 .PHONY : assignment1_generate_messages_eus

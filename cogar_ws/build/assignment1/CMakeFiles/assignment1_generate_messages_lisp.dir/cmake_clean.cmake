@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/SensorFusion.lisp"
+  "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/fusion.lisp"
   "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv/Speaker.lisp"
   "CMakeFiles/assignment1_generate_messages_lisp"
 )

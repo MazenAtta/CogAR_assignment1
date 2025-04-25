@@ -1,10 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
+from std_msgs.msg import String
 from sensor_msgs.msg import Image, Range, LaserScan
 from geometry_msgs.msg import WrenchStamped
 # Import the FusedData message type (update the package name if needed)
-from SensorFusion.msg import FusedData
+from assignment1.msg import SensorFusion
 
 class StructuralRiskAssessmentNode:
     def __init__(self):
@@ -14,12 +15,12 @@ class StructuralRiskAssessmentNode:
 
         # Flags to simulate data acquisition
         self.force_data = None
-
+        self.fused_data = None
         # Sensor subscriptions
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
         
         # Subscribe to sensor fusion component
-        rospy.Subscriber('/sensor_fusion', FusedData, self.sensor_fusion_callback)
+        rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
 
         # Rate for the main loop
         self.rate = rospy.Rate(1)  # 1 Hz loop
@@ -30,6 +31,10 @@ class StructuralRiskAssessmentNode:
                 self.assessment_callback()
             self.rate.sleep()
 
+    def ready_for_assessment(self):
+        # Check if both force data and fused data are available
+        return self.force_data is not None and self.fused_data is not None
+        
     def force_sensor_callback(self, msg):
         self.force_data = msg
         rospy.loginfo("Force sensor data received.")
@@ -46,12 +51,15 @@ class StructuralRiskAssessmentNode:
             risk_level = self.classify_risk()
             if risk_level >= 0.7:
                 self.send_alert()
+            
+            elif risk_level < 0.7:
+                self.log_results(risk_level)
+
             else:
                 if self.move_closer():
                     self.classify_risk()
                     if risk_level >= 0.7:
                         self.send_alert()
-            self.log_results(risk_level)
         else:
             rospy.loginfo("No cracks detected.")
 

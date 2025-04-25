@@ -66,17 +66,31 @@ include assignment1/CMakeFiles/assignment1_generate_messages_lisp.dir/compiler_d
 # Include the progress variables for this target.
 include assignment1/CMakeFiles/assignment1_generate_messages_lisp.dir/progress.make
 
+assignment1/CMakeFiles/assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/fusion.lisp
+assignment1/CMakeFiles/assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/SensorFusion.lisp
 assignment1/CMakeFiles/assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv/Speaker.lisp
+
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/SensorFusion.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/SensorFusion.lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from assignment1/SensorFusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg
+
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/fusion.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
+/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/fusion.lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from assignment1/fusion.msg"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg
 
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv/Speaker.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
 /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv/Speaker.lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from assignment1/Speaker.srv"
-	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from assignment1/Speaker.srv"
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build/assignment1 && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/srv/Speaker.srv -Iassignment1:/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p assignment1 -o /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv
 
 assignment1/CMakeFiles/assignment1_generate_messages_lisp.dir/codegen:
 .PHONY : assignment1/CMakeFiles/assignment1_generate_messages_lisp.dir/codegen
 
 assignment1_generate_messages_lisp: assignment1/CMakeFiles/assignment1_generate_messages_lisp
+assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/SensorFusion.lisp
+assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/msg/fusion.lisp
 assignment1_generate_messages_lisp: /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel/share/common-lisp/ros/assignment1/srv/Speaker.lisp
 assignment1_generate_messages_lisp: assignment1/CMakeFiles/assignment1_generate_messages_lisp.dir/build.make
 .PHONY : assignment1_generate_messages_lisp

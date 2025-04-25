@@ -396,6 +396,34 @@ assignment1_generate_messages/fast:
 .PHONY : assignment1_generate_messages/fast
 
 # Convenience name for target.
+assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/rule:
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/rule
+.PHONY : assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/rule
+
+# Convenience name for target.
+_assignment1_generate_messages_check_deps_fusion: assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/rule
+.PHONY : _assignment1_generate_messages_check_deps_fusion
+
+# fast build rule for target.
+_assignment1_generate_messages_check_deps_fusion/fast:
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build && $(MAKE) $(MAKESILENT) -f assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/build.make assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_fusion.dir/build
+.PHONY : _assignment1_generate_messages_check_deps_fusion/fast
+
+# Convenience name for target.
+assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/rule:
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/rule
+.PHONY : assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/rule
+
+# Convenience name for target.
+_assignment1_generate_messages_check_deps_SensorFusion: assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/rule
+.PHONY : _assignment1_generate_messages_check_deps_SensorFusion
+
+# fast build rule for target.
+_assignment1_generate_messages_check_deps_SensorFusion/fast:
+	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build && $(MAKE) $(MAKESILENT) -f assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/build.make assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_SensorFusion.dir/build
+.PHONY : _assignment1_generate_messages_check_deps_SensorFusion/fast
+
+# Convenience name for target.
 assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_Speaker.dir/rule:
 	cd /home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_Speaker.dir/rule
 .PHONY : assignment1/CMakeFiles/_assignment1_generate_messages_check_deps_Speaker.dir/rule
@@ -562,7 +590,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... _assignment1_generate_messages_check_deps_SensorFusion"
 	@echo "... _assignment1_generate_messages_check_deps_Speaker"
+	@echo "... _assignment1_generate_messages_check_deps_fusion"
 	@echo "... assignment1_gencpp"
 	@echo "... assignment1_generate_messages"
 	@echo "... assignment1_generate_messages_cpp"
