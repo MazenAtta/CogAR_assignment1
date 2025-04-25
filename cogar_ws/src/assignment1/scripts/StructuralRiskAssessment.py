@@ -3,8 +3,8 @@
 import rospy
 from sensor_msgs.msg import Image, Range, LaserScan
 from geometry_msgs.msg import WrenchStamped
-from nav_msgs.msg import Odometry
-
+# Import the FusedData message type (update the package name if needed)
+from SensorFusion.msg import FusedData
 
 class StructuralRiskAssessmentNode:
     def __init__(self):
@@ -14,35 +14,28 @@ class StructuralRiskAssessmentNode:
 
         # Flags to simulate data acquisition
         self.force_data = None
-        self.odom_data = None
 
         # Sensor subscriptions
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
-        rospy.Subscriber('/mobile_base_controller/odom', odometry, self.odom_callback)
         
         # Subscribe to sensor fusion component
         rospy.Subscriber('/sensor_fusion', FusedData, self.sensor_fusion_callback)
 
-        self.assessment_done = False
-
         # Rate for the main loop
         self.rate = rospy.Rate(1)  # 1 Hz loop
 
-
         while not rospy.is_shutdown():
-            if self.ready_for_assessment() and not self.assessment_done:
+            if self.ready_for_assessment():
                 self.assessment_done = True
                 self.assessment_callback()
             self.rate.sleep()
 
     def force_sensor_callback(self, msg):
         self.force_data = msg
+        rospy.loginfo("Force sensor data received.")
 
-    def odom_callback(self, msg):
-        self.odom_data = msg
-    
     def sensor_fusion_callback(self, msg):
-        # Process the sensor fusion output
+        rospy.loginfo("Sensor fusion data received.")
         self.fused_data = msg
 
     def assessment_callback(self):
@@ -53,10 +46,12 @@ class StructuralRiskAssessmentNode:
             risk_level = self.classify_risk()
             if risk_level >= 0.7:
                 self.send_alert()
-                if self.move_closer():
-                    self.reassess()
             else:
-                self.log_results(risk_level)
+                if self.move_closer():
+                    self.classify_risk()
+                    if risk_level >= 0.7:
+                        self.send_alert()
+            self.log_results(risk_level)
         else:
             rospy.loginfo("No cracks detected.")
 
@@ -74,13 +69,12 @@ class StructuralRiskAssessmentNode:
 
     def send_alert(self):
         rospy.logwarn("High Risk Detected! Sending Alert to Operator.")
+        rospy.publish('/supervisor', 'High Risk Detected!')
 
     def move_closer(self):
-        rospy.loginfo("Requesting Path Planner to move closer...")
+        rospy.loginfo("Moving closer to the structure...")
+        rospy.publish('/TaskExecuter', 'move_closer')
         return True  # Simulate success
-
-    def reassess(self):
-        rospy.loginfo("Reassessing structure after moving closer...")
 
     def log_results(self, risk_level):
         rospy.loginfo(f"[{rospy.get_time()}] Risk Level: {risk_level}")

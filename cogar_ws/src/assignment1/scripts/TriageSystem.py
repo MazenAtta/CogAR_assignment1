@@ -2,7 +2,7 @@
 
 import rospy
 from std_msgs.msg import String
-from assignment1.srv import Speaker, SpeakerRequest
+from Speaker.srv import Speaker, SpeakerRequest
 
 class TriageSystemNode:
     def __init__(self):
@@ -12,7 +12,6 @@ class TriageSystemNode:
 
         self.rgbd_info = None
         self.vocal_response = None
-        self.triage_done = False
 
         # Subscriptions
         rospy.Subscriber('/sensor_fusion/rgbd_info', String, self.rgbd_callback)
@@ -28,8 +27,7 @@ class TriageSystemNode:
         self.rate = rospy.Rate(1)
 
         while not rospy.is_shutdown():
-            if self.ready_for_triage() and not self.triage_done:
-                self.triage_done = True
+            if self.ready_for_triage():
                 self.perform_triage()
             self.rate.sleep()
 
@@ -47,8 +45,8 @@ class TriageSystemNode:
     def perform_triage(self):
         rospy.loginfo("Performing triage assessment...")
 
-        success = self.ask_question("Hello, can you hear me?")
-        if not success:
+        Assessment_question = self.ask_question("Hello, can you hear me?")
+        if not Assessment_question:
             rospy.logwarn("Speaker failed to deliver message.")
             return
 
@@ -89,7 +87,6 @@ class TriageSystemNode:
             return "Yellow - Delayed"
         else:
             return "Green - Minor"
-
 
 if __name__ == '__main__':
     try:
