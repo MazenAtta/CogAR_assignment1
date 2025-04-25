@@ -1,0 +1,2 @@
+assignment1
+-DCATKIN_DEVEL_PREFIX=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/devel -DCMAKE_INSTALL_PREFIX=/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/install -G Unix Makefiles
