@@ -22,8 +22,9 @@ class PathPlannerNode:
 
         # Internal data
         self.current_pose = None
-        self.target_pose = None
         self.task_instruction = None
+        self.object_pose = None
+        self.target_pose = None
 
         self.rate = rospy.Rate(2)  # 2 Hz
 
@@ -35,27 +36,40 @@ class PathPlannerNode:
     def slam_callback(self, msg):
         rospy.loginfo("Received SLAM estimated state.")
         self.current_pose = msg
-
+    
     def object_detection_callback(self, msg):
         rospy.loginfo("Received Object Detection target.")
-        self.target_pose = msg
-
+        self.object_pose = msg
+    
     def task_executioner_callback(self, msg):
         rospy.loginfo(f"Received Task Instruction: {msg.data}")
         self.task_instruction = msg.data
 
     def ready_to_plan(self):
-        return self.current_pose is not None and self.target_pose is not None and self.task_instruction is not None
+        return self.current_pose is not None and self.object_pose is not None and self.task_instruction is not None
 
     def plan_path(self):
         rospy.loginfo("Planning path to the target...")
-        # Dummy planning logic
-        setpoint = SetPoint()
+        # Create a dummy path with a single point
+        setpoint = Path()
         setpoint.header.stamp = rospy.Time.now()
         setpoint.header.frame_id = "map"
-        # Copy target pose as goal for now
-        setpoint.pose = self.target_pose.pose
-
+        
+        # Create a single waypoint
+        waypoint = PoseStamped()
+        waypoint.header.stamp = rospy.Time.now()
+        waypoint.header.frame_id = "map"
+        waypoint.pose.position.x = 2.0
+        waypoint.pose.position.y = 1.5
+        waypoint.pose.position.z = 0.0
+        waypoint.pose.orientation.x = 0.0
+        waypoint.pose.orientation.y = 0.0
+        waypoint.pose.orientation.z = 0.0
+        waypoint.pose.orientation.w = 1.0
+        
+        # Add the waypoint to the path
+        setpoint.poses = [waypoint]
+        
         self.setpoint_pub.publish(setpoint)
         rospy.loginfo("Published SetPoint to controller.")
 
