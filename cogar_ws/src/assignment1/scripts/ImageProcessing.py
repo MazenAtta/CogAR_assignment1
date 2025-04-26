@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import rospy
-from sensor_msgs.msg import Image, String
+from sensor_msgs.msg import Image
+from std_msgs.msg import String
 
 class ImageProcessingNode:
     def __init__(self):

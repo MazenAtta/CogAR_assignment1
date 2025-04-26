@@ -43,10 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/assignment1/msg" TYPE FILE FILES
-    "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/fusion.msg"
-    "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg"
-    )
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/assignment1/msg" TYPE FILE FILES "/home/mazenatta/Desktop/Master/CogAR/assignment1/CogAR_assignment1/cogar_ws/src/assignment1/msg/SensorFusion.msg")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

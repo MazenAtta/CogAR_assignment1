@@ -22,7 +22,8 @@ class PointCloudProcessingNode:
         # Internal storage
         self.sonar_data = None
         self.lidar_data = None
-        self.image_data = None
+        self.rgb_data = None
+        self.depth_data = None
 
         self.rate = rospy.Rate(2)  # 2 Hz
 
@@ -39,9 +40,13 @@ class PointCloudProcessingNode:
         rospy.loginfo("Received LIDAR scan.")
         self.lidar_data = msg
 
-    def image_callback(self, msg):
+    def rgb_callback(self, msg):
         rospy.loginfo("Received processed image data.")
         self.image_data = msg.data
+
+    def depth_callback(self, msg):
+        rospy.loginfo("Received depth image data.")
+        self.depth_data = msg.data
 
     def ready_to_process(self):
         return self.sonar_data is not None and self.lidar_data is not None and self.image_data is not None

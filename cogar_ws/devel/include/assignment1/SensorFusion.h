@@ -15,6 +15,10 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <std_msgs/Header.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/Image.h>
+#include <nav_msgs/Odometry.h>
 
 namespace assignment1
 {
@@ -24,17 +28,57 @@ struct SensorFusion_
   typedef SensorFusion_<ContainerAllocator> Type;
 
   SensorFusion_()
-    : FusedData()  {
-    }
+    : header()
+    , pointcloud()
+    , image()
+    , odom()
+    , imu_orientation()
+    , imu_angular_velocity()
+    , imu_linear_acceleration()  {
+      imu_orientation.assign(0.0);
+
+      imu_angular_velocity.assign(0.0);
+
+      imu_linear_acceleration.assign(0.0);
+  }
   SensorFusion_(const ContainerAllocator& _alloc)
-    : FusedData(_alloc)  {
+    : header(_alloc)
+    , pointcloud(_alloc)
+    , image(_alloc)
+    , odom(_alloc)
+    , imu_orientation()
+    , imu_angular_velocity()
+    , imu_linear_acceleration()  {
   (void)_alloc;
-    }
+      imu_orientation.assign(0.0);
+
+      imu_angular_velocity.assign(0.0);
+
+      imu_linear_acceleration.assign(0.0);
+  }
 
 
 
-   typedef std::vector<float, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<float>> _FusedData_type;
-  _FusedData_type FusedData;
+   typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
+  _header_type header;
+
+   typedef  ::sensor_msgs::PointCloud2_<ContainerAllocator>  _pointcloud_type;
+  _pointcloud_type pointcloud;
+
+   typedef  ::sensor_msgs::Image_<ContainerAllocator>  _image_type;
+  _image_type image;
+
+   typedef  ::nav_msgs::Odometry_<ContainerAllocator>  _odom_type;
+  _odom_type odom;
+
+   typedef boost::array<double, 4>  _imu_orientation_type;
+  _imu_orientation_type imu_orientation;
+
+   typedef boost::array<double, 3>  _imu_angular_velocity_type;
+  _imu_angular_velocity_type imu_angular_velocity;
+
+   typedef boost::array<double, 3>  _imu_linear_acceleration_type;
+  _imu_linear_acceleration_type imu_linear_acceleration;
 
 
 
@@ -65,7 +109,13 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::assignment1::SensorFusion_<ContainerAllocator1> & lhs, const ::assignment1::SensorFusion_<ContainerAllocator2> & rhs)
 {
-  return lhs.FusedData == rhs.FusedData;
+  return lhs.header == rhs.header &&
+    lhs.pointcloud == rhs.pointcloud &&
+    lhs.image == rhs.image &&
+    lhs.odom == rhs.odom &&
+    lhs.imu_orientation == rhs.imu_orientation &&
+    lhs.imu_angular_velocity == rhs.imu_angular_velocity &&
+    lhs.imu_linear_acceleration == rhs.imu_linear_acceleration;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -108,12 +158,12 @@ struct IsFixedSize< ::assignment1::SensorFusion_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct HasHeader< ::assignment1::SensorFusion_<ContainerAllocator> >
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
 struct HasHeader< ::assignment1::SensorFusion_<ContainerAllocator> const>
-  : FalseType
+  : TrueType
   { };
 
 
@@ -122,12 +172,12 @@ struct MD5Sum< ::assignment1::SensorFusion_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "370f547decfe0b4a69841f116fc2c0fe";
+    return "c4f5e90b537eb296772ed90404b0484f";
   }
 
   static const char* value(const ::assignment1::SensorFusion_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x370f547decfe0b4aULL;
-  static const uint64_t static_value2 = 0x69841f116fc2c0feULL;
+  static const uint64_t static_value1 = 0xc4f5e90b537eb296ULL;
+  static const uint64_t static_value2 = 0x772ed90404b0484fULL;
 };
 
 template<class ContainerAllocator>
@@ -146,9 +196,186 @@ struct Definition< ::assignment1::SensorFusion_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "# SensorFusion.msg\n"
+    return "std_msgs/Header header\n"
 "\n"
-"float32[] FusedData\n"
+"# Sensors\n"
+"sensor_msgs/PointCloud2 pointcloud\n"
+"sensor_msgs/Image image\n"
+"nav_msgs/Odometry odom\n"
+"\n"
+"# IMU simulated values\n"
+"float64[4] imu_orientation          # Quaternion (x, y, z, w)\n"
+"float64[3] imu_angular_velocity      # Angular velocity (x, y, z)\n"
+"float64[3] imu_linear_acceleration   # Linear acceleration (x, y, z)\n"
+"\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
+"\n"
+"================================================================================\n"
+"MSG: sensor_msgs/PointCloud2\n"
+"# This message holds a collection of N-dimensional points, which may\n"
+"# contain additional information such as normals, intensity, etc. The\n"
+"# point data is stored as a binary blob, its layout described by the\n"
+"# contents of the \"fields\" array.\n"
+"\n"
+"# The point cloud data may be organized 2d (image-like) or 1d\n"
+"# (unordered). Point clouds organized as 2d images may be produced by\n"
+"# camera depth sensors such as stereo or time-of-flight.\n"
+"\n"
+"# Time of sensor data acquisition, and the coordinate frame ID (for 3d\n"
+"# points).\n"
+"Header header\n"
+"\n"
+"# 2D structure of the point cloud. If the cloud is unordered, height is\n"
+"# 1 and width is the length of the point cloud.\n"
+"uint32 height\n"
+"uint32 width\n"
+"\n"
+"# Describes the channels and their layout in the binary data blob.\n"
+"PointField[] fields\n"
+"\n"
+"bool    is_bigendian # Is this data bigendian?\n"
+"uint32  point_step   # Length of a point in bytes\n"
+"uint32  row_step     # Length of a row in bytes\n"
+"uint8[] data         # Actual point data, size is (row_step*height)\n"
+"\n"
+"bool is_dense        # True if there are no invalid points\n"
+"\n"
+"================================================================================\n"
+"MSG: sensor_msgs/PointField\n"
+"# This message holds the description of one point entry in the\n"
+"# PointCloud2 message format.\n"
+"uint8 INT8    = 1\n"
+"uint8 UINT8   = 2\n"
+"uint8 INT16   = 3\n"
+"uint8 UINT16  = 4\n"
+"uint8 INT32   = 5\n"
+"uint8 UINT32  = 6\n"
+"uint8 FLOAT32 = 7\n"
+"uint8 FLOAT64 = 8\n"
+"\n"
+"string name      # Name of field\n"
+"uint32 offset    # Offset from start of point struct\n"
+"uint8  datatype  # Datatype enumeration, see above\n"
+"uint32 count     # How many elements in the field\n"
+"\n"
+"================================================================================\n"
+"MSG: sensor_msgs/Image\n"
+"# This message contains an uncompressed image\n"
+"# (0, 0) is at top-left corner of image\n"
+"#\n"
+"\n"
+"Header header        # Header timestamp should be acquisition time of image\n"
+"                     # Header frame_id should be optical frame of camera\n"
+"                     # origin of frame should be optical center of camera\n"
+"                     # +x should point to the right in the image\n"
+"                     # +y should point down in the image\n"
+"                     # +z should point into to plane of the image\n"
+"                     # If the frame_id here and the frame_id of the CameraInfo\n"
+"                     # message associated with the image conflict\n"
+"                     # the behavior is undefined\n"
+"\n"
+"uint32 height         # image height, that is, number of rows\n"
+"uint32 width          # image width, that is, number of columns\n"
+"\n"
+"# The legal values for encoding are in file src/image_encodings.cpp\n"
+"# If you want to standardize a new string format, join\n"
+"# ros-users@lists.sourceforge.net and send an email proposing a new encoding.\n"
+"\n"
+"string encoding       # Encoding of pixels -- channel meaning, ordering, size\n"
+"                      # taken from the list of strings in include/sensor_msgs/image_encodings.h\n"
+"\n"
+"uint8 is_bigendian    # is this data bigendian?\n"
+"uint32 step           # Full row length in bytes\n"
+"uint8[] data          # actual matrix data, size is (step * rows)\n"
+"\n"
+"================================================================================\n"
+"MSG: nav_msgs/Odometry\n"
+"# This represents an estimate of a position and velocity in free space.  \n"
+"# The pose in this message should be specified in the coordinate frame given by header.frame_id.\n"
+"# The twist in this message should be specified in the coordinate frame given by the child_frame_id\n"
+"Header header\n"
+"string child_frame_id\n"
+"geometry_msgs/PoseWithCovariance pose\n"
+"geometry_msgs/TwistWithCovariance twist\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/PoseWithCovariance\n"
+"# This represents a pose in free space with uncertainty.\n"
+"\n"
+"Pose pose\n"
+"\n"
+"# Row-major representation of the 6x6 covariance matrix\n"
+"# The orientation parameters use a fixed-axis representation.\n"
+"# In order, the parameters are:\n"
+"# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)\n"
+"float64[36] covariance\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Pose\n"
+"# A representation of pose in free space, composed of position and orientation. \n"
+"Point position\n"
+"Quaternion orientation\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Point\n"
+"# This contains the position of a point in free space\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Quaternion\n"
+"# This represents an orientation in free space in quaternion form.\n"
+"\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
+"float64 w\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/TwistWithCovariance\n"
+"# This expresses velocity in free space with uncertainty.\n"
+"\n"
+"Twist twist\n"
+"\n"
+"# Row-major representation of the 6x6 covariance matrix\n"
+"# The orientation parameters use a fixed-axis representation.\n"
+"# In order, the parameters are:\n"
+"# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)\n"
+"float64[36] covariance\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Twist\n"
+"# This expresses velocity in free space broken into its linear and angular parts.\n"
+"Vector3  linear\n"
+"Vector3  angular\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Vector3\n"
+"# This represents a vector in free space. \n"
+"# It is only meant to represent a direction. Therefore, it does not\n"
+"# make sense to apply a translation to it (e.g., when applying a \n"
+"# generic rigid transformation to a Vector3, tf2 will only apply the\n"
+"# rotation). If you want your data to be translatable too, use the\n"
+"# geometry_msgs/Point message instead.\n"
+"\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
 ;
   }
 
@@ -167,7 +394,13 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.FusedData);
+      stream.next(m.header);
+      stream.next(m.pointcloud);
+      stream.next(m.image);
+      stream.next(m.odom);
+      stream.next(m.imu_orientation);
+      stream.next(m.imu_angular_velocity);
+      stream.next(m.imu_linear_acceleration);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -186,11 +419,35 @@ struct Printer< ::assignment1::SensorFusion_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::assignment1::SensorFusion_<ContainerAllocator>& v)
   {
-    s << indent << "FusedData[]" << std::endl;
-    for (size_t i = 0; i < v.FusedData.size(); ++i)
+    s << indent << "header: ";
+    s << std::endl;
+    Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    s << indent << "pointcloud: ";
+    s << std::endl;
+    Printer< ::sensor_msgs::PointCloud2_<ContainerAllocator> >::stream(s, indent + "  ", v.pointcloud);
+    s << indent << "image: ";
+    s << std::endl;
+    Printer< ::sensor_msgs::Image_<ContainerAllocator> >::stream(s, indent + "  ", v.image);
+    s << indent << "odom: ";
+    s << std::endl;
+    Printer< ::nav_msgs::Odometry_<ContainerAllocator> >::stream(s, indent + "  ", v.odom);
+    s << indent << "imu_orientation[]" << std::endl;
+    for (size_t i = 0; i < v.imu_orientation.size(); ++i)
     {
-      s << indent << "  FusedData[" << i << "]: ";
-      Printer<float>::stream(s, indent + "  ", v.FusedData[i]);
+      s << indent << "  imu_orientation[" << i << "]: ";
+      Printer<double>::stream(s, indent + "  ", v.imu_orientation[i]);
+    }
+    s << indent << "imu_angular_velocity[]" << std::endl;
+    for (size_t i = 0; i < v.imu_angular_velocity.size(); ++i)
+    {
+      s << indent << "  imu_angular_velocity[" << i << "]: ";
+      Printer<double>::stream(s, indent + "  ", v.imu_angular_velocity[i]);
+    }
+    s << indent << "imu_linear_acceleration[]" << std::endl;
+    for (size_t i = 0; i < v.imu_linear_acceleration.size(); ++i)
+    {
+      s << indent << "  imu_linear_acceleration[" << i << "]: ";
+      Printer<double>::stream(s, indent + "  ", v.imu_linear_acceleration[i]);
     }
   }
 };

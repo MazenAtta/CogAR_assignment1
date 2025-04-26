@@ -11,6 +11,9 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  nav_msgs
+  geometry_msgs
+  sensor_msgs
   message_generation
   message_runtime
 )
@@ -51,7 +54,6 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  fusion.msg
   SensorFusion.msg
 )
 
@@ -72,6 +74,9 @@ add_service_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
+  nav_msgs
+  sensor_msgs
+  geometry_msgs
 )
 
 ################################################

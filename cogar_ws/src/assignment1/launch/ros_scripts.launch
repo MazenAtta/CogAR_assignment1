@@ -1,0 +1,30 @@
+<launch>
+    <!-- Image Processing Node -->
+    <node pkg="assignment1" type="ImageProcessing.py" name="image_processing_node" output="screen"/>
+    
+    <!-- Object Detection Node -->
+    <node pkg="assignment1" type="ObjectDetection.py" name="object_detection_node" output="screen"/>
+    
+    <!-- Path Planning Node -->
+    <node pkg="assignment1" type="PathPlanner.py" name="path_planner_node" output="screen"/>
+    
+    <!-- Point Cloud Processing Node -->
+    <node pkg="assignment1" type="PointCloudProcessing.py" name="point_cloud_processing_node" output="screen"/>
+    
+    <!-- Sensor Fusion Node -->
+    <node pkg="assignment1" type="SensorFusion.py" name="sensor_fusion_node" output="screen"/>
+    
+    <!-- Speaker Service Node -->
+    <node pkg="assignment1" type="speaker_service.py" name="speaker_service_node" output="screen"/>
+    
+    <!-- Structural Risk Assessment Node -->
+    <node pkg="assignment1" type="StructuralRiskAssessment.py" name="structural_risk_assessment_node" output="screen"/>
+    
+    <!-- Task Execution Node -->
+    
+    <!-- Triage System Node -->
+    <node pkg="assignment1" type="TriageSystem.py" name="triage_system_node" output="screen"/>
+    
+    <!-- Victim Detection and Reporting Node -->
+    <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection_node" output="screen"/>
+</launch>

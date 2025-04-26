@@ -3,7 +3,5 @@
   (:export
    "<SENSORFUSION>"
    "SENSORFUSION"
-   "<FUSION>"
-   "FUSION"
   ))
 
