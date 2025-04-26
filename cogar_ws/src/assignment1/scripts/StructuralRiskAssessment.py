@@ -22,6 +22,9 @@ class StructuralRiskAssessmentNode:
         # Subscribe to sensor fusion component
         rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
 
+        self.alert_publisher = rospy.Publisher('/supervisor', String, queue_size=10)
+        self.task_executer_publisher = rospy.Publisher('/TaskExecuter', String, queue_size=10)
+
         # Rate for the main loop
         self.rate = rospy.Rate(1)  # 1 Hz loop
 
@@ -77,11 +80,11 @@ class StructuralRiskAssessmentNode:
 
     def send_alert(self):
         rospy.logwarn("High Risk Detected! Sending Alert to Operator.")
-        rospy.publish('/supervisor', 'High Risk Detected!')
+        self.alert_publisher.publish('High Risk Detected!')
 
     def move_closer(self):
         rospy.loginfo("Moving closer to the structure...")
-        rospy.publish('/TaskExecuter', 'move_closer')
+        self.task_executer_publisher.publish('move_closer')
         return True  # Simulate success
 
     def log_results(self, risk_level):
