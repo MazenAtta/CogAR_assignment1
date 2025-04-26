@@ -36,7 +36,7 @@ class StructuralRiskAssessmentNode:
 
     def ready_for_assessment(self):
         # Check if both force data and fused data are available
-        return self.force_data is not None
+        return self.force_data is not None and self.fused_data is not None
         
     def force_sensor_callback(self, msg):
         self.force_data = msg
