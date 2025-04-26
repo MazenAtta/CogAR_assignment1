@@ -1,0 +1,46 @@
+sequenceDiagram
+    participant taskExec as Task Executor
+    participant triageSys as Triage System
+    participant imgProc as Image Processing
+    participant audProc as Audio Processing
+    participant spkrDrv as Speaker
+    participant nav as Path Planner
+    actor  supInt as Supervisor Interface
+    taskExec ->>+ triageSys: startTriage(victimInfo)
+
+    %% Initial Assessment (Passive) %%
+    
+    triageSys ->>+ imgProc: requestVisualAnalysis(victimInfo.visualData)
+    imgProc -->>- triageSys: visualAssessmentData(consciousness_level, injuries_visible)
+
+    triageSys ->>+ audProc: requestAudioAnalysis(victimInfo.audioData)
+    audProc -->>- triageSys: audioAssessmentData(sounds_detected, voice_detected)
+    
+
+    %% Optional Repositioning %%
+    alt Need better view/audio
+        triageSys ->>+ taskExec: requestReposition(optimalPose)
+        taskExec ->>+ nav: repostionTask()
+        nav -->>- taskExec : repositionComplete()
+        taskExec-->>- triageSys : repositionAchieved()
+        
+    end
+
+    %% Active Assessment (Interaction) %%
+    triageSys ->>+ spkrDrv: speak("Are you okay? Can you hear me?")
+
+    triageSys ->>+ audProc: listenForResponse(timeout)
+    audProc -->>- triageSys: verbalResponseData(response_content / none)
+
+    opt If response received
+        triageSys ->>+ spkrDrv: speak("Please stay still. Help is coming.")
+        triageSys ->>+ audProc: listenForResponse(timeout) # Optional follow-up listening
+        audProc -->>- triageSys: verbalResponseData(response_content / none)
+    end
+
+    %% Classification and Reporting %%
+    triageSys ->> triageSys: classifyTriageLevel()
+    triageSys ->>+ supInt: sendTriageReport(triageReport)
+    supInt -->>- triageSys: reportReceivedAck()
+
+    triageSys ->>- taskExec: triageComplete(triageResult)
