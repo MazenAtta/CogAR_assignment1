@@ -36,7 +36,7 @@ class TriageSystemNode:
 
     def sensor_fusion_callback(self, msg):
         # Extract RGB-D information from the sensor fusion message
-        self.rgbd_info = msg.FusedData[0]
+        self.rgbd_info = msg.image
         rospy.loginfo(f"RGB-D Info Received: {self.rgbd_info}")
 
     def audio_callback(self, msg):

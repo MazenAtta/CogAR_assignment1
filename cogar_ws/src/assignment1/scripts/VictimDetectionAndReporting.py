@@ -27,7 +27,7 @@ class VictimDetectionAndReportingNode:
 
     def sensor_fusion_callback(self, msg):
         # Assume RGB-D camera info is embedded in SensorFusion message
-        self.rgbd_info = msg.FusedData[0]
+        self.rgbd_info = msg.image
         rospy.loginfo(f"RGB-D Info received for victim detection: {self.rgbd_info}")
 
     def ready_for_detection(self):
