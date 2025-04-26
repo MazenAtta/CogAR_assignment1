@@ -38,7 +38,15 @@ class ImageProcessingNode:
     def process_images(self):
         rospy.loginfo("Processing RGB and Depth images...")
         # Dummy "processed" output
-        processed_result = "Processed Image Data"
+        processed_result = Image()
+        processed_result.header.stamp = rospy.Time.now()
+        processed_result.header.frame_id = "processed_image_frame"
+        processed_result.height = self.rgb_image.height
+        processed_result.width = self.rgb_image.width
+        processed_result.encoding = self.rgb_image.encoding
+        processed_result.is_bigendian = self.rgb_image.is_bigendian
+        processed_result.step = self.rgb_image.step
+        processed_result.data = self.rgb_image.data  # Dummy data, copying RGB image data
         self.processed_image_pub.publish(processed_result)
         rospy.loginfo("Published processed image data.")
 

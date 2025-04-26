@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 import rospy
-from sensor_msgs.msg import Range, LaserScan, PointCloud2, Image
+from sensor_msgs.msg import Range, LaserScan, PointCloud2, Image, PointField
+import numpy as np
+import struct
+
 
 class PointCloudProcessingNode:
     def __init__(self):
@@ -51,10 +54,52 @@ class PointCloudProcessingNode:
     def ready_to_process(self):
         return self.sonar_data is not None and self.lidar_data is not None and self.image_data is not None
 
+    def create_dummy_pointcloud(self):
+        """
+        Creates a dummy PointCloud2 message with random points.
+        """
+        # Define the header
+        header = rospy.Header()
+        header.stamp = rospy.Time.now()
+        header.frame_id = "map"
+
+        # Define the fields (x, y, z, intensity)
+        fields = [
+            PointField('x', 0, PointField.FLOAT32, 1),
+            PointField('y', 4, PointField.FLOAT32, 1),
+            PointField('z', 8, PointField.FLOAT32, 1),
+            PointField('intensity', 12, PointField.FLOAT32, 1)
+        ]
+
+        # Generate some random points
+        num_points = 100
+        points = np.random.rand(num_points, 4).astype(np.float32)  # x, y, z, intensity
+
+        # Flatten points into a byte array
+        point_data = []
+        for point in points:
+            point_data.append(struct.pack('ffff', *point))
+
+        point_data = b"".join(point_data)
+
+        # Create the PointCloud2 message
+        pointcloud = PointCloud2()
+        pointcloud.header = header
+        pointcloud.height = 1  # 1-dimensional array of points
+        pointcloud.width = num_points
+        pointcloud.fields = fields
+        pointcloud.is_bigendian = False
+        pointcloud.point_step = 16  # 4 fields x 4 bytes/field
+        pointcloud.row_step = pointcloud.point_step * num_points
+        pointcloud.is_dense = True  # No invalid points
+        pointcloud.data = point_data
+
+        return pointcloud
+
     def process_pointcloud(self):
         rospy.loginfo("Processing data into a point cloud...")
         # Dummy processing result
-        dummy_pointcloud = "Dummy PointCloud Generated"
+        dummy_pointcloud = self.create_dummy_pointcloud()
         self.pointcloud_pub.publish(dummy_pointcloud)
         rospy.loginfo("Published dummy point cloud.")
 
