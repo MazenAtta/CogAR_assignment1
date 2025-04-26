@@ -18,7 +18,7 @@ class PathPlannerNode:
         rospy.Subscriber('/task_executioner', String, self.task_executioner_callback)
 
         # Publisher
-        self.setpoint_pub = rospy.Publisher('/controller', Path, queue_size=10)
+        self.setpoint_pub = rospy.Publisher('/path_planner/setpoint', Path, queue_size=10)
 
         # Internal data
         self.current_pose = None
