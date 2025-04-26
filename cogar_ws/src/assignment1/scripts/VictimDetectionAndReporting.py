@@ -28,7 +28,7 @@ class VictimDetectionAndReportingNode:
     def sensor_fusion_callback(self, msg):
         # Assume RGB-D camera info is embedded in SensorFusion message
         self.rgbd_info = msg.image
-        rospy.loginfo(f"RGB-D Info received for victim detection: {self.rgbd_info}")
+        rospy.loginfo(f"RGB-D Info received for victim detection")
 
     def ready_for_detection(self):
         return self.rgbd_info is not None
@@ -45,9 +45,9 @@ class VictimDetectionAndReportingNode:
 
     def process_rgbd_data(self):
         rospy.loginfo("Processing RGB-D data for victim detection...")
-        if "human shape" in self.rgbd_info.lower():
-            return True
-        return False
+        # Simulated victim detection logic
+        # In a real scenario, this would involve image processing and possibly machine learning
+        return True
 
     def report_victim(self):
         rospy.logwarn("Victim detected! Reporting to system...")
