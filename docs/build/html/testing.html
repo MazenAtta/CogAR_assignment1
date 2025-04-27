@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing &mdash; Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=359c27e9"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Code Documentation" href="code.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Cognitive Architecture for Post-Earthquake Search and Rescue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">Code Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#integration-testing">Integration Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-performance-indicators-kpis">Key Performance Indicators (KPIs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-test-results">Integration Test Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-testing">Unit Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#structuralriskassessment-unit-testing-kpis">StructuralRiskAssessment Unit Testing KPIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triagesystem-unit-testing-kpis">TriageSystem Unit Testing KPIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Testing</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/MazenAtta/CogAR_assignment1/blob/main/docs/source/testing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this heading"></a></h1>
+<section id="integration-testing">
+<h2>Integration Testing<a class="headerlink" href="#integration-testing" title="Permalink to this heading"></a></h2>
+<p>The integration testing framework is designed to validate the functionality and interoperability of all system components when working together. The tests ensure proper communication between modules, data flow integrity, and expected system behavior during different operational scenarios.</p>
+<section id="key-performance-indicators-kpis">
+<h3>Key Performance Indicators (KPIs)<a class="headerlink" href="#key-performance-indicators-kpis" title="Permalink to this heading"></a></h3>
+<p>The following KPIs are measured during integration testing:</p>
+<ol class="arabic simple">
+<li><p><strong>Communication Integrity</strong>
+* All required topics are properly published and subscribed to
+* Messages are correctly transmitted between components
+* No message loss occurs during normal operation</p></li>
+<li><p><strong>Functional Validation</strong>
+* Risk assessment correctly identifies and reports risk levels
+* Victim detection accurately identifies and reports victim presence
+* Triage system properly classifies victims based on input data
+* Task execution successfully manages and completes assigned tasks</p></li>
+<li><p><strong>System Response Time</strong>
+* End-to-end latency from input detection to system response
+* Component-to-component communication delays</p></li>
+<li><p><strong>Data Quality</strong>
+* Sensor fusion correctly integrates multiple data sources
+* Processing components generate valid output from input data</p></li>
+</ol>
+</section>
+<section id="integration-test-results">
+<h3>Integration Test Results<a class="headerlink" href="#integration-test-results" title="Permalink to this heading"></a></h3>
+<p>The <cite>integration_test.py</cite> script tests the full workflow of the system, focusing on the following aspects:</p>
+<ul class="simple">
+<li><p><strong>Audio Input Processing</strong>: Testing if audio input (“Help me!”) is correctly processed through the system</p></li>
+<li><p><strong>Risk Assessment Validation</strong>: Confirming that risk alerts are generated and contain expected content</p></li>
+<li><p><strong>Triage Classification Accuracy</strong>: Validating that victims are classified correctly as “Red - Immediate Attention”</p></li>
+<li><p><strong>Victim Detection Verification</strong>: Ensuring victim alerts are generated with position information</p></li>
+<li><p><strong>Task Execution Completeness</strong>: Verifying task status updates occur correctly</p></li>
+</ul>
+<p><strong>Results Summary:</strong></p>
+<p>The integration tests demonstrate that all major components are communicating successfully and the system meets its functional requirements. All tests passed, indicating that the components are correctly integrated and working together as expected.</p>
+</section>
+</section>
+<section id="unit-testing">
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this heading"></a></h2>
+<p>Unit tests are designed to validate the functionality of individual components in isolation. Each component is tested independently to ensure it meets its specific requirements and behaves as expected.</p>
+<section id="structuralriskassessment-unit-testing-kpis">
+<h3>StructuralRiskAssessment Unit Testing KPIs<a class="headerlink" href="#structuralriskassessment-unit-testing-kpis" title="Permalink to this heading"></a></h3>
+<p>The StructuralRiskAssessment component should be evaluated using the following KPIs:</p>
+<ol class="arabic">
+<li><p><strong>Subscription Validation</strong>
+* Verify successful subscription to all required topics:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>/wrist_right_ft</cite> (WrenchStamped)</p></li>
+<li><p><cite>/perception/sensor_fusion</cite> (SensorFusion)</p></li>
+<li><p><cite>/task_executor/task</cite> (String)</p></li>
+<li><p><cite>/perception/image_processing</cite> (Image)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Publication Correctness</strong>
+* Validate proper message publishing to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>/risk_alert</cite> (String)</p></li>
+<li><p><cite>/risk_level</cite> (Float32)</p></li>
+<li><p><cite>/task_executor/requests</cite> (String)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Verify message content conforms to expected format and contains required information</p></li>
+</ul>
+</li>
+<li><p><strong>Risk Assessment Logic</strong>
+* Test risk classification logic with various input combinations
+* Verify correct risk level calculation
+* Validate threshold-based decision making (risk &gt;= 0.7)</p></li>
+<li><p><strong>State Management</strong>
+* Confirm proper initialization of state variables
+* Test state transitions based on different input scenarios
+* Verify callback functions correctly update internal state</p></li>
+<li><p><strong>Error Handling</strong>
+* Test behavior with missing or incomplete sensor data
+* Validate recovery from simulated communication failures
+* Verify graceful handling of malformed messages</p></li>
+</ol>
+</section>
+<section id="triagesystem-unit-testing-kpis">
+<h3>TriageSystem Unit Testing KPIs<a class="headerlink" href="#triagesystem-unit-testing-kpis" title="Permalink to this heading"></a></h3>
+<p>The TriageSystem component should be evaluated using the following KPIs:</p>
+<ol class="arabic">
+<li><p><strong>Subscription Validation</strong>
+* Verify successful subscription to all required topics:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>/task_executor/task</cite> (String)</p></li>
+<li><p><cite>/perception/processed_audio</cite> (String)</p></li>
+<li><p><cite>/perception/image_processing</cite> (Image)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>Service Interaction</strong>
+* Validate proper interaction with the Speaker service
+* Verify error handling when the service is unavailable
+* Test timeout handling during service calls</p></li>
+<li><p><strong>Publication Correctness</strong>
+* Validate proper message publishing to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>/triage/classification</cite> (String)</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Verify classification messages contain expected triage levels</p></li>
+</ul>
+</li>
+<li><p><strong>Classification Logic</strong>
+* Test vocal and visual status analysis functions with different inputs
+* Verify classification algorithm correctly maps inputs to triage levels
+* Validate edge cases (non-responsive, unstable, etc.)</p></li>
+<li><p><strong>State Management</strong>
+* Confirm proper initialization of data holders
+* Test state transitions during triage assessment
+* Verify ready_for_triage logic correctly determines when assessment can proceed</p></li>
+<li><p><strong>Error Handling</strong>
+* Test behavior when audio or image data is missing
+* Validate recovery from simulated communication failures
+* Verify graceful handling of unexpected input values</p></li>
+</ol>
+<p>These unit testing KPIs provide a comprehensive framework for validating the individual functionality of the StructuralRiskAssessment and TriageSystem components before they are integrated into the larger system.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="code.html" class="btn btn-neutral float-left" title="Code Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Mazen Atta &amp; Mazen Madbouly.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
