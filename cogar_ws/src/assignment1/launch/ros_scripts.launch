@@ -38,4 +38,6 @@
     
     <!-- Victim Detection and Reporting Node -->
     <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection_node" output="screen" launch-prefix = "konsole -e"/>
+
+    
 </launch>

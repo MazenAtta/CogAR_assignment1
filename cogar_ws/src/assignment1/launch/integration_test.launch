@@ -1,0 +1,12 @@
+<launch>
+    <!-- Include your existing launch files if any -->
+    
+    <!-- Start required nodes -->
+    <node pkg="assignment1" type="StructuralRiskAssessment.py" name="structural_risk"/>
+    <node pkg="assignment1" type="TaskExecutor.py" name="task_executor"/>
+    <node pkg="assignment1" type="TriageSystem.py" name="triage_system"/>
+    <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection"/>
+    
+    <!-- Start test node -->
+    <test test-name="integration_test" pkg="assignment1" type="integration_test.py"/>
+</launch>
