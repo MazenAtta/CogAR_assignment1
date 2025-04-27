@@ -20,7 +20,7 @@ class PointCloudProcessingNode:
         rospy.Subscriber('/xtion/depth/image_raw', Image, self.depth_callback)
 
         # Publisher
-        self.pointcloud_pub = rospy.Publisher('/pointcloud_processing', PointCloud2, queue_size=10)
+        self.pointcloud_pub = rospy.Publisher('/perception/pointcloud_processing', PointCloud2, queue_size=10)
 
         # Internal storage
         self.sonar_data = None

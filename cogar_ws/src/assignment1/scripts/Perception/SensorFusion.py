@@ -12,12 +12,12 @@ class SensorFusionNode:
         rospy.loginfo("Sensor Fusion Node initialized.")
 
         # Subscribers
-        rospy.Subscriber('/pointcloud_processing', PointCloud2, self.pointcloud_callback)
-        rospy.Subscriber('/image_processing', Image, self.image_callback)
+        rospy.Subscriber('/perception/pointcloud_processing', PointCloud2, self.pointcloud_callback)
+        rospy.Subscriber('/perception/image_processing', Image, self.image_callback)
         rospy.Subscriber('/mobile_base_controller/odom', Odometry, self.odom_callback)
 
         # Publisher
-        self.fused_data_pub = rospy.Publisher('/sensor_fusion', SensorFusion, queue_size=10)
+        self.fused_data_pub = rospy.Publisher('/perception/sensor_fusion', SensorFusion, queue_size=10)
 
         # Internal data
         self.pointcloud_data = None

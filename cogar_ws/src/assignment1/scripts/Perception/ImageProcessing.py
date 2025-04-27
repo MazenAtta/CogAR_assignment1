@@ -15,7 +15,7 @@ class ImageProcessingNode:
         rospy.Subscriber('/xtion/depth/image_raw', Image, self.depth_callback)
 
         # Publisher for processed image data
-        self.processed_image_pub = rospy.Publisher('/image_processing', Image, queue_size=10)
+        self.processed_image_pub = rospy.Publisher('/perception/image_processing', Image, queue_size=10)
 
         self.rgb_image = None
         self.depth_image = None

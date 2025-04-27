@@ -11,10 +11,10 @@ class ObjectDetectionNode:
         rospy.loginfo("Object Detection Node initialized.")
 
         # Subscriber to processed image data
-        rospy.Subscriber('/image_processing', Image, self.processed_image_callback)
+        rospy.Subscriber('/perception/image_processing', Image, self.processed_image_callback)
 
         # Publisher for detected objects
-        self.detected_objects_pub = rospy.Publisher('/object_detection/detected_objects', PoseStamped, queue_size=10)
+        self.detected_objects_pub = rospy.Publisher('/perception/detected_objects', PoseStamped, queue_size=10)
 
         self.processed_data = None
 

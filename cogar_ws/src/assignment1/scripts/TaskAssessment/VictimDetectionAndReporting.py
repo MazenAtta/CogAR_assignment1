@@ -2,7 +2,8 @@
 
 import rospy
 from std_msgs.msg import String
-from geometry_msgs.msg import PoseStamped
+from sensor_msgs.msg import Image
+from geometry_msgs.msg import PoseStamped, Point
 
 class VictimDetectionAndReportingNode:
     def __init__(self):
@@ -12,15 +13,18 @@ class VictimDetectionAndReportingNode:
         # Internal data
         self.current_pose = None
         self.audio_detection = None
+        self.image_data = None
         self.task_instruction = None
         
         # Subscribers
         rospy.Subscriber('/perception/processed_audio', String, self.audio_callback)
         rospy.Subscriber('/slam/estimated_state', PoseStamped, self.estimated_state_callback)
         rospy.Subscriber('/task_executor', String, self.task_executor_callback)
+        rospy.Subscriber('/image_processing', Image, self.image_processing_callback)
 
-        # Publisher
+        # Publishers
         self.alert_pub = rospy.Publisher('/victim_detection/alert', String, queue_size=10)
+        self.victim_location_pub = rospy.Publisher('/victim_detection/location', Point, queue_size=10)
 
         self.rate = rospy.Rate(1)  # 1 Hz
 
@@ -40,10 +44,16 @@ class VictimDetectionAndReportingNode:
     def task_executor_callback(self, msg):
         self.task_instruction = msg.data
         rospy.loginfo("Received task instruction: %s", self.task_instruction)
+        
+    def image_processing_callback(self, msg):
+        self.image_data = msg
+        rospy.loginfo_throttle(5.0, "Image processing data received")
 
     def ready_for_detection(self):
-        # We need audio data and current position to detect victims
-        return self.audio_detection is not None and self.current_pose is not None
+        # We need audio data, image data and current position to detect victims
+        return (self.audio_detection is not None and 
+                self.current_pose is not None and 
+                self.image_data is not None)
 
     def detect_victims(self):
         rospy.loginfo("Detecting victims based on sensor data...")
@@ -52,12 +62,17 @@ class VictimDetectionAndReportingNode:
         victim_found = False
         
         # Check if processed audio indicates human voice
-        if self.audio_detection and "Human voice" in self.audio_detection:
+        if self.audio_detection and "Human voice detected" in self.audio_detection:
             victim_found = True
             victim_type = "Human voice detected"
+        # Check for visual detection based on image processing
+        elif self.image_data is not None:
+            victim_found = True  # Dummy detection - always find victim in image data
+            victim_type = "Visual detection of victim"
+        # Random detection (fallback)
         elif rospy.get_time() % 60 < 10:  # Random detection every minute
             victim_found = True
-            victim_type = "Visual detection of victim"
+            victim_type = "Combined sensor detection of victim"
         
         if victim_found:
             self.report_victim(victim_type)
@@ -66,12 +81,25 @@ class VictimDetectionAndReportingNode:
 
     def report_victim(self, victim_type):
         # Create alert message with location and detection type
-        location = f"Position: ({self.current_pose.pose.position.x:.2f}, {self.current_pose.pose.position.y:.2f})"
+        x = self.current_pose.pose.position.x
+        y = self.current_pose.pose.position.y
+        z = self.current_pose.pose.position.z
+        
+        location = f"Position: ({x:.2f}, {y:.2f}, {z:.2f})"
         alert_msg = f"ALERT: {victim_type} at {location}"
         
-        # Publish alert
+        # Create location point message
+        location_point = Point()
+        location_point.x = x
+        location_point.y = y
+        location_point.z = z
+        
+        # Publish alert and location
         self.alert_pub.publish(alert_msg)
+        self.victim_location_pub.publish(location_point)
+        
         rospy.loginfo("Published victim alert: %s", alert_msg)
+        rospy.loginfo(f"Published victim location: ({x:.2f}, {y:.2f}, {z:.2f})")
 
 if __name__ == '__main__':
     try:

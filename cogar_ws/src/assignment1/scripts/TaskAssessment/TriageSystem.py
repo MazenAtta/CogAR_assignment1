@@ -2,8 +2,8 @@
 
 import rospy
 from std_msgs.msg import String
+from sensor_msgs.msg import Image
 from assignment1.srv import Speaker, SpeakerRequest
-from assignment1.msg import SensorFusion
 
 class TriageSystemNode:
     def __init__(self):
@@ -11,19 +11,22 @@ class TriageSystemNode:
 
         rospy.loginfo("Triage System initialized. Waiting for sensor data...")
 
-        self.rgbd_info = None
-        self.vocal_response = None
+        # Data holders for the subscribed topics
+        self.task_data = None
+        self.audio_data = None
+        self.image_data = None
 
         # Subscriptions
-        rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
-        rospy.Subscriber('/audio_processing/vocal_response', String, self.audio_callback)
-
-        # Publisher
-        self.classification_pub = rospy.Publisher('/triage/classification', String, queue_size=10)
+        rospy.Subscriber('/task_executor', String, self.task_executor_callback)
+        rospy.Subscriber('/perception/processed_audio', String, self.audio_callback)
+        rospy.Subscriber('//image_processing', Image, self.image_processing_callback)
 
         # Wait for speaker service to be available
         rospy.wait_for_service('/speaker')
         self.speaker_client = rospy.ServiceProxy('/speaker', Speaker)
+
+        # Publisher
+        self.classification_pub = rospy.Publisher('/triage/classification', String, queue_size=10)
 
         self.rate = rospy.Rate(1)
 
@@ -32,18 +35,22 @@ class TriageSystemNode:
                 self.perform_triage()
             self.rate.sleep()
 
-    def sensor_fusion_callback(self, msg):
-        # Extract RGB-D information from the sensor fusion message
-        self.rgbd_info = msg.image
-        rospy.loginfo(f"RGB-D Info Received")
+    def task_executor_callback(self, msg):
+        self.task_data = msg.data
+        rospy.loginfo(f"Task Executor Data Received: {self.task_data}")
 
     def audio_callback(self, msg):
-        self.vocal_response = msg.data
-        rospy.loginfo(f"Audio Response Received: {self.vocal_response}")
-        return True
+        self.audio_data = msg.data
+        rospy.loginfo(f"Processed Audio Data Received: {self.audio_data}")
+
+    def image_processing_callback(self, msg):
+        self.image_data = msg
+        rospy.loginfo("Image Processing Data Received")
 
     def ready_for_triage(self):
-        return self.rgbd_info is not None and self.vocal_response is not None
+        return (self.task_data is not None and 
+                self.audio_data is not None and 
+                self.image_data is not None)
 
     def perform_triage(self):
         rospy.loginfo("Performing triage assessment...")
@@ -55,10 +62,10 @@ class TriageSystemNode:
 
         rospy.sleep(1)
 
-        conscious = self.analyze_audio_response()
-        condition = self.evaluate_condition()
+        vocal_status = self.analyze_audio_data()
+        visual_status = self.analyze_image_data()
 
-        triage_level = self.classify_victim(conscious, condition)
+        triage_level = self.classify_victim(vocal_status, visual_status)
         rospy.loginfo(f"Triage Result: {triage_level}")
         self.classification_pub.publish(triage_level)
 
@@ -71,25 +78,32 @@ class TriageSystemNode:
             rospy.logerr(f"Service call failed: {e}")
             return False
 
-    def analyze_audio_response(self):
-        rospy.loginfo("Analyzing vocal response...")
-        if self.vocal_response.lower() in ["yes", "i can hear you", "help"]:
-            return True
-        return False
+    def analyze_audio_data(self):
+        rospy.loginfo("Analyzing processed audio data...")
+        # Dummy analysis - just check if there are any words that indicate consciousness
+        if self.audio_data and any(word in self.audio_data.lower() for word in ["yes", "help", "hear"]):
+            return "responsive"
+        return "non-responsive"
 
-    def evaluate_condition(self):
-        rospy.loginfo("Evaluating physical condition from RGB-D info...")
-        if "lying down" in self.rgbd_info.lower():
-            return "unconscious"
-        return "responsive"
+    def analyze_image_data(self):
+        rospy.loginfo("Analyzing image processing data...")
+        # Dummy analysis - for demonstration purposes only
+        # In a real system, would analyze the image data for victim condition
+        return "stable"  # Always return stable in this dummy implementation
 
-    def classify_victim(self, conscious, condition):
-        if not conscious:
-            return "Red - Immediate Attention"
-        elif condition == "responsive":
-            return "Yellow - Delayed"
+    def classify_victim(self, vocal_status, visual_status):
+        # Dummy triage classification logic
+        if vocal_status == "non-responsive":
+            classification = "Red - Immediate Attention"
+        elif visual_status == "unstable":
+            classification = "Yellow - Delayed"
         else:
-            return "Green - Minor"
+            classification = "Green - Minor"
+            
+        # Announce classification using speaker service
+        self.ask_question(f"Victim classified as {classification}")
+        
+        return classification
 
 if __name__ == '__main__':
     try:

@@ -4,6 +4,7 @@ import rospy
 from std_msgs.msg import String, Float32
 from sensor_msgs.msg import Image, Range, LaserScan
 from geometry_msgs.msg import WrenchStamped, PoseStamped
+from assignment1.msg import SensorFusion
 
 class StructuralRiskAssessmentNode:
     def __init__(self):
@@ -13,15 +14,15 @@ class StructuralRiskAssessmentNode:
 
         # Flags to simulate data acquisition
         self.force_data = None
-        self.slam_data = None
+        self.sensor_fusion_data = None
         self.task_executor_data = None
         self.image_processing_data = None
         
         # Sensor subscriptions
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
-        rospy.Subscriber('/slam/estimated_state', PoseStamped, self.slam_callback)
+        rospy.Subscriber('/perception/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
         rospy.Subscriber('/task_executor', String, self.task_executor_callback)
-        rospy.Subscriber('/image_processing', Image, self.image_processing_callback)
+        rospy.Subscriber('/perception/image_processing', Image, self.image_processing_callback)
         
         # Publishers
         self.alert_publisher = rospy.Publisher('/risk_alert', String, queue_size=10)
@@ -41,7 +42,7 @@ class StructuralRiskAssessmentNode:
     def ready_for_assessment(self):
         # Check if all required data is available
         return (self.force_data is not None and 
-                self.slam_data is not None and 
+                self.sensor_fusion_data is not None and 
                 self.task_executor_data is not None and 
                 self.image_processing_data is not None)
         
@@ -49,9 +50,9 @@ class StructuralRiskAssessmentNode:
         self.force_data = msg
         rospy.loginfo("Force sensor data received.")
         
-    def slam_callback(self, msg):
-        self.slam_data = msg
-        rospy.loginfo("SLAM estimated state received.")
+    def sensor_fusion_callback(self, msg):
+        self.sensor_fusion_data = msg
+        rospy.loginfo("Sensor fusion data received.")
         
     def task_executor_callback(self, msg):
         self.task_executor_data = msg
@@ -83,7 +84,7 @@ class StructuralRiskAssessmentNode:
             rospy.loginfo("No cracks detected.")
 
     def process_data(self):
-        rospy.loginfo("Processing data from SLAM, force sensor, task executor, and image processing...")
+        rospy.loginfo("Processing data from sensor fusion, force sensor, task executor, and image processing...")
         # This is a dummy function - no actual processing is done
         return "processed_data"
 
