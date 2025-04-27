@@ -131,6 +131,8 @@ class StructuralRiskAssessmentNode:
             risk_level = self.classify_risk()
             if risk_level >= 0.7:
                 self.send_alert(risk_level)
+                self.risk_level_publisher.publish(Float32(risk_level))
+                self.alert_publisher.publish(f"High Risk")
             
             elif risk_level < 0.7:
                 self.log_results(risk_level)

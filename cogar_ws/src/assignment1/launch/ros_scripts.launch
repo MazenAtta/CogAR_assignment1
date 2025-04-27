@@ -1,4 +1,23 @@
 <launch>
+
+    <!-- Launch the depth_raw.bag -->
+    <node pkg="rosbag" type="play" name="play_depth_raw" args="--loop $(find assignment1)/bags/depth_raw.bag" />
+
+    <!-- Launch the force_sensor.bag -->
+    <node pkg="rosbag" type="play" name="play_force_sensor" args="--loop $(find assignment1)/bags/force_sensor.bag" />
+
+    <!-- Launch the odometry.bag -->
+    <node pkg="rosbag" type="play" name="play_odometry" args="--loop $(find assignment1)/bags/odometry.bag" />
+
+    <!-- Launch the rgb_raw.bag -->
+    <node pkg="rosbag" type="play" name="play_rgb_raw" args="--loop $(find assignment1)/bags/rgb_raw.bag" />
+
+    <!-- Launch the scan_lidar.bag -->
+    <node pkg="rosbag" type="play" name="play_scan_lidar" args="--loop $(find assignment1)/bags/scan_lidar.bag" />
+
+    <!-- Launch the sonar.bag -->
+    <node pkg="rosbag" type="play" name="play_sonar" args="--loop $(find assignment1)/bags/sonar.bag" />
+    
     <!-- Image Processing Node -->
     <node pkg="assignment1" type="ImageProcessing.py" name="image_processing_node" output="screen"/>
     
@@ -39,5 +58,6 @@
     <!-- Victim Detection and Reporting Node -->
     <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection_node" output="screen" launch-prefix = "konsole -e"/>
 
-    
+    <!-- Start test node -->
+    <test test-name="integration_test" pkg="assignment1" type="integration_test.py"/>
 </launch>
