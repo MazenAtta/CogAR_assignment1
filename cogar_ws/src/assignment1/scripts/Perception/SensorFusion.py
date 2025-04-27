@@ -3,9 +3,48 @@
 import rospy
 from sensor_msgs.msg import PointCloud2, Image
 from nav_msgs.msg import Odometry
-from assignment1.msg import SensorFusion  # Custom message assumed
+from assignment1.msg import SensorFusion
 
 class SensorFusionNode:
+    """
+    A ROS node for fusing data from multiple sensors.
+
+    This node subscribes to topics providing data from various sensors (PointCloud, Image, Odometry, IMU), and publishes fused sensor data.
+
+    Topics:
+        - Subscribed:
+            - /perception/pointcloud_processing (PointCloud2): Point cloud data from the perception module.
+            - /perception/image_processing (Image): Image data from the perception module.
+            - /mobile_base_controller/odom (Odometry): Odometry data from the mobile base controller.
+
+        - Published:
+            - /perception/sensor_fusion (SensorFusion): Fused sensor data.
+    
+    Attributes:
+        fused_data_pub (rospy.Publisher): Publishes fused sensor data.
+        pointcloud_data (PointCloud2): Stores point cloud data.
+        image_data (Image): Stores image data.
+        odom_data (Odometry): Stores odometry data.
+        imu_data (dict): Simulated IMU data.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        pointcloud_callback(msg):
+            Callback function for receiving point cloud data.
+        image_callback(msg):
+            Callback function for receiving image data.
+        odom_callback(msg):
+            Callback function for receiving odometry data.
+        fake_imu_data():
+            Generates simulated IMU data.
+        ready_to_fuse():
+            Checks if all required sensor data is available for fusion.
+        fuse_data():
+            Fuses the sensor data and publishes the result.
+    """
+
     def __init__(self):
         rospy.init_node('sensor_fusion_node')
 

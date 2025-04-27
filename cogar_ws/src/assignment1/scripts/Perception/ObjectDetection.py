@@ -5,6 +5,30 @@ from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import Image
 
 class ObjectDetectionNode:
+    """
+    ObjectDetectionNode: A ROS node for detecting objects from processed image data.
+
+    This node subscribes to a topic providing processed image data, detects objects
+    based on the received data, and publishes the detected objects' poses.
+
+    Topics:
+        - Subscribed:
+            - /perception/image_processing (sensor_msgs.msg.Image): Topic providing processed image data.
+        - Published:
+            - /perception/detected_objects (geometry_msgs.msg.PoseStamped): Topic for publishing detected objects' poses.
+
+    Attributes:
+        - detected_objects_pub (rospy.Publisher): Publisher for detected objects' poses.
+        - processed_data (str): Stores the processed image data received from the subscriber.
+        - rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+        - __init__(): Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        - processed_image_callback(msg): Callback function for the processed image data subscriber.
+        - ready_to_plan(): Checks if the node is ready to detect objects.
+        - detect_objects(): Detects objects and publishes their poses.
+
+    """
     def __init__(self):
         rospy.init_node('object_detection_node')
 

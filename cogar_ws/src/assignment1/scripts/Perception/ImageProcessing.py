@@ -5,6 +5,48 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import String
 
 class ImageProcessingNode:
+    """
+    ImageProcessingNode: A ROS node for processing RGB and Depth images.
+
+    This node subscribes to RGB-D camera, processes the images, and publishes the processed image data to a specified topic.
+
+    Topics:
+        - Subscribed:
+            - /xtion/rgb/image_raw (sensor_msgs.msg.Image): RGB image data from the camera.
+            - /xtion/depth/image_raw (sensor_msgs.msg.Image): Depth image data from the camera.
+        - Published:
+            - /perception/image_processing (sensor_msgs.msg.Image): Processed image data.
+
+    Attributes:
+        rgb_image (sensor_msgs.msg.Image): Stores the latest RGB image received from the camera.
+        depth_image (sensor_msgs.msg.Image): Stores the latest Depth image received from the camera.
+        processed_image_pub (rospy.Publisher): Publishes the processed image data to the `/perception/image_processing` topic.
+
+    Methods:
+        __init__():
+            Initializes the ROS node, sets up subscribers and publishers, and starts the processing loop.
+
+        rgb_callback(msg):
+            Callback function for the RGB image topic. Stores the received RGB image.
+
+            Args:
+                msg (sensor_msgs.msg.Image): The RGB image message received from the topic.
+
+        depth_callback(msg):
+            Callback function for the Depth image topic. Stores the received Depth image.
+
+            Args:
+                msg (sensor_msgs.msg.Image): The Depth image message received from the topic.
+
+        process_images():
+            Processes the RGB and Depth images and publishes the processed result.
+
+            The processed result is a dummy output that copies the RGB image data and publishes it
+            with updated metadata.
+
+            Returns:
+                None
+    """
     def __init__(self):
         rospy.init_node('image_processing_node')
 

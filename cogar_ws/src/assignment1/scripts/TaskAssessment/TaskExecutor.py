@@ -4,6 +4,44 @@ import rospy
 from std_msgs.msg import String
 
 class TaskExecutorNode:
+    """
+    A ROS node for managing and executing tasks based on requests and mission plans.
+
+    This node subscribes to topics for task requests and mission plan updates, processes the received
+    data, and publishes the current task and status updates. It handles specific task types and follows
+    a mission plan when no pending requests are available.
+
+    Topics:
+    =======
+        - Subscribed:
+            - /task_executor/requests (String): Topic for task requests.
+            - /mission_planner (String): Topic for mission plan updates.
+        - Published:
+            - /task_executor/task (String): Topic for publishing the current task.
+            - /task_status (String): Topic for publishing task execution status updates.
+
+    Attributes:
+    ===========
+        current_task (str): The currently executing task.
+        mission_plan (str): The current mission plan.
+        pending_requests (list): Queue of pending task requests.
+        task_pub (rospy.Publisher): Publishes the current task.
+        status_pub (rospy.Publisher): Publishes task execution status updates.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+    ========
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        request_callback(msg):
+            Callback function for receiving task requests.
+        mission_planner_callback(msg):
+            Callback function for receiving mission plan updates.
+        execute_tasks():
+            Processes pending requests or follows the mission plan, and publishes task updates.
+    """
+
     def __init__(self):
         rospy.init_node('task_executor')
         rospy.loginfo("Task Executor Node Initialized.")

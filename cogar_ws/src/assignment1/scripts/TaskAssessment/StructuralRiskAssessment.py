@@ -8,6 +8,67 @@ from assignment1.msg import SensorFusion
 
 
 class StructuralRiskAssessmentNode:
+    """
+    A ROS node for assessing structural risks based on sensor data.
+
+    This node subscribes to various sensor data topics, processes the data to identify 
+    potential structural issues, classifies the risk level, and publishes alerts or risk levels as needed.
+
+    Topics:
+    =======
+        - Subscribed:
+            - /wrist_right_ft (WrenchStamped): Force sensor data.
+            - /perception/sensor_fusion (SensorFusion): Sensor fusion data.
+            - /task_executor/task (String): Task executor data.
+            - /perception/image_processing (Image): Image processing data.
+        - Published:
+            - /risk_alert (String): Alerts for high-risk levels.
+            - /risk_level (Float32): The calculated risk level.
+            - /task_executor/requests (String): Requests to move the robot closer.
+
+    Attributes:
+    ===========
+    Attributes:
+        force_data (WrenchStamped): Stores the force sensor data.
+        sensor_fusion_data (SensorFusion): Stores the sensor fusion data.
+        task_executor_data (String): Stores the task executor data.
+        image_processing_data (Image): Stores the image processing data.
+        alert_publisher (rospy.Publisher): Publishes alerts for high-risk levels.
+        risk_level_publisher (rospy.Publisher): Publishes the calculated risk levels.
+        move_closer (rospy.Publisher): Publishes requests to move the robot closer.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+    ========
+    Methods:
+
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        ready_for_assessment():
+            Checks if all required data is available for assessment.
+        force_sensor_callback(msg):
+            Callback function for force sensor data.
+        sensor_fusion_callback(msg):
+            Callback function for sensor fusion data.
+        task_executor_callback(msg):
+            Callback function for task executor data.
+        image_processing_callback(msg):
+            Callback function for image processing data.
+        assessment_callback():
+            Performs the structural risk assessment.
+        process_data():
+            Processes the received sensor data (dummy implementation).
+        identify_cracks(data):
+            Identifies potential structural issues (dummy implementation).
+        classify_risk():
+            Classifies the structural risk level (dummy implementation).
+        send_alert(risk_level):
+            Publishes an alert for high-risk levels.
+        request_move_closer():
+            Requests the robot to move closer to the structure.
+        log_results(risk_level):
+            Logs the calculated risk level.   
+    """
     def __init__(self):
         rospy.init_node('structural_risk_assessment')
 

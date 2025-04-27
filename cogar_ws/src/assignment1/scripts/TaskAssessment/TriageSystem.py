@@ -6,6 +6,59 @@ from sensor_msgs.msg import Image
 from assignment1.srv import Speaker, SpeakerRequest
 
 class TriageSystemNode:
+    """
+    A ROS node for performing triage assessments based on sensor data.
+
+    This node subscribes to topics providing task, audio, and image data, processes the data,
+    and classifies victims into triage levels. It interacts with a speaker service to
+    communicate with victims and publishes classification results.
+
+    Topics:
+    =======
+        - Subscribed:
+            - /task_executor/task (String): Task data from the task executor.
+            - /perception/processed_audio (String): Processed audio data from the audio processing node.
+            - /perception/image_processing (Image): Processed image data from the image processing node.
+        - Published:
+            - /triage/classification (String): Triage classification results.
+        - Service:
+            - /speaker (Speaker): Service for interacting with the speaker.
+
+    Attributes:
+    ===========
+    Attributes:
+        task_data (str): Task data received from the subscriber.
+        audio_data (str): Processed audio data received from the subscriber.
+        image_data (sensor_msgs.msg.Image): Processed image data received from the subscriber.
+        speaker_client (rospy.ServiceProxy): Client for interacting with the speaker service.
+        classification_pub (rospy.Publisher): Publishes triage classification results.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+    ========
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers, publishers, service clients, and starts the main loop.
+        task_executor_callback(msg):
+            Callback function for receiving task data.
+        audio_callback(msg):
+            Callback function for receiving processed audio data.
+        image_processing_callback(msg):
+            Callback function for receiving processed image data.
+        ready_for_triage():
+            Checks if the node has received all necessary data for triage.
+        perform_triage():
+            Performs the triage assessment and publishes the classification result.
+        ask_question(question):
+            Sends a question to the speaker service and returns success status.
+        analyze_audio_data():
+            Analyzes the processed audio data to determine vocal responsiveness.
+        analyze_image_data():
+            Analyzes the processed image data to determine visual status.
+        classify_victim(vocal_status, visual_status):
+            Classifies the victim based on vocal and visual status.
+    """
+
     def __init__(self):
         rospy.init_node('triage_system')
 

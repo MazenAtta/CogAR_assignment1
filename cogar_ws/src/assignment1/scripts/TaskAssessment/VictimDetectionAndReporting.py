@@ -6,6 +6,55 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import PoseStamped, Point
 
 class VictimDetectionAndReportingNode:
+    """
+    A ROS node for detecting and reporting victims based on sensor data.
+
+    This node subscribes to topics providing processed audio, image data, and the robot's current pose.
+    It detects victims based on the received data and publishes alerts and victim locations.
+
+    Topics:
+    =======
+        - Subscribed:
+            - /perception/processed_audio (String): Processed audio data from the audio processing node.
+            - /slam/estimated_state (PoseStamped): The robot's current pose from the SLAM node.
+            - /task_executor/task (String): Task data from the task executor.
+            - /perception/image_processing (Image): Processed image data from the image processing node.
+        - Published:
+            - /victim_detection/alert (String): Alerts for detected victims.
+            - /victim_detection/location (Point): Locations of detected victims.
+
+    Attributes:
+    ===========
+    Attributes:
+        current_pose (PoseStamped): The robot's current pose.
+        audio_detection (str): The processed audio data received from the subscriber.
+        image_data (Image): The processed image data received from the subscriber.
+        task_instruction (str): The task instructions received from the subscriber.
+        alert_pub (rospy.Publisher): Publishes victim detection alerts.
+        victim_location_pub (rospy.Publisher): Publishes victim locations.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+    ========
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        audio_callback(msg):
+            Receives processed audio data.
+        estimated_state_callback(msg):
+            Receives the robot's current pose.
+        task_executor_callback(msg):
+            Receives task instruction messages.
+        image_processing_callback(msg):
+            Receives processed image data.
+        ready_for_detection():
+            Checks if the node has all the required data to detect victims.
+        detect_victims():
+            Detects victims based on the received sensor data.
+        report_victim(victim_type):
+            Reports detected victims by publishing alerts and locations.
+    """
+
     def __init__(self):
         rospy.init_node('victim_detection_and_reporting')
         rospy.loginfo("Victim Detection Node Initialized. Waiting for sensor data...")

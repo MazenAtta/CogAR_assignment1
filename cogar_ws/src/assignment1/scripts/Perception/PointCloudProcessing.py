@@ -7,6 +7,39 @@ import struct
 
 
 class PointCloudProcessingNode:
+    """
+    PointCloudProcessingNode: A ROS node for processing sensor data into a point cloud.
+        
+    This node subscribes to various sensor data topics (sonar, LIDAR, RGB, and depth cameras),
+    processes the data, and publishes a point cloud representation.
+
+    Topics:
+        - Subscribed:
+            - /sonar_base (sensor_msgs.msg.Range): Topic providing sonar data.
+            - /scan (sensor_msgs.msg.LaserScan): Topic providing LIDAR scan data.
+            - /xtion/rgb/image_raw (sensor_msgs.msg.Image): Topic providing RGB image data.
+            - /xtion/depth/image_raw (sensor_msgs.msg.Image): Topic providing depth image data.
+        - Published:
+            - /perception/pointcloud_processing (sensor_msgs.msg.PointCloud2): Topic for publishing processed point cloud data.
+
+    Attributes:
+        - pointcloud_pub (rospy.Publisher): Publisher for processed point cloud data.
+        - sonar_data (sensor_msgs.msg.Range): Stores the sonar data received from the subscriber.
+        - lidar_data (sensor_msgs.msg.LaserScan): Stores the LIDAR scan data received from the subscriber.
+        - rgb_data (sensor_msgs.msg.Image): Stores the RGB image data received from the subscriber.
+        - depth_data (sensor_msgs.msg.Image): Stores the depth image data received from the subscriber.
+        - rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+        - __init__(): Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        - sonar_callback(msg): Callback function for the sonar data subscriber.
+        - lidar_callback(msg): Callback function for the LIDAR scan data subscriber.
+        - rgb_callback(msg): Callback function for the RGB image data subscriber.
+        - depth_callback(msg): Callback function for the depth image data subscriber.
+        - ready_to_process(): Checks if the node has received all necessary sensor data.
+        - create_dummy_pointcloud(): Creates a dummy PointCloud2 message with random points.
+        - process_pointcloud(): Processes the sensor data into a point cloud and publishes it.
+    """
     def __init__(self):
         rospy.init_node('pointcloud_processing_node')
 

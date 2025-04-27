@@ -21,10 +21,10 @@
     <node pkg="assignment1" type="StructuralRiskAssessment.py" name="structural_risk_assessment_node" output="screen" launch-prefix = "konsole -e"/>
     
     <!-- Task Execution Node -->
-    <node pkg="assignment1" type="TaskExecution.py" name="task_execution_node" output="screen"/>
+    <node pkg="assignment1" type="TaskExecutor.py" name="task_execution_node" output="screen"/>
 
     <!-- Platform_Controller Node -->
-    <node pkg="assignment1" type="Platfor_Controller.py" name="controller_node" output="screen"/>
+    <node pkg="assignment1" type="Platform_Controller.py" name="controller_node" output="screen"/>
 
     <!-- SLAM Node -->
     <node pkg="assignment1" type="SLAM.py" name="slam_node" output="screen"/>

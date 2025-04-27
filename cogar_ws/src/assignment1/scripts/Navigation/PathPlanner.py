@@ -7,6 +7,45 @@ from nav_msgs.msg import Path
 
 
 class PathPlannerNode:
+    """
+    A ROS node for planning paths to target locations.
+
+    This node subscribes to topics providing the robot's current pose, detected object poses,
+    and task instructions. It plans a path to the target location based on the received data
+    and publishes the planned path as a setpoint.
+
+    Topics:
+        - Subscribed:
+            - /slam/estimated_state (PoseStamped): The robot's current pose from SLAM.
+            - /object_detection (PoseStamped): Detected object poses.
+            - /task_executioner (String): Task instructions.
+
+        - Published:
+            - /path_planner/setpoint (Path): The planned path to the target location.
+
+    Attributes:
+        setpoint_pub (rospy.Publisher): Publishes the planned path (setpoint).
+        current_pose (PoseStamped): Stores the robot's current pose.
+        task_instruction (str): Stores the task instruction received from the subscriber.
+        object_pose (PoseStamped): Stores the detected object's pose.
+        target_pose (PoseStamped): Stores the target pose for path planning.
+        rate (rospy.Rate): Controls the loop rate of the node.
+
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        slam_callback(msg):
+            Callback function for receiving the robot's pose from SLAM.
+        object_detection_callback(msg):
+            Callback function for receiving detected object poses.
+        task_executioner_callback(msg):
+            Callback function for receiving task instructions.
+        ready_to_plan():
+            Checks if the node has all the required data to plan a path.
+        plan_path():
+            Plans a path to the target location and publishes it.
+    """
+
     def __init__(self):
         rospy.init_node('path_planner_node')
 

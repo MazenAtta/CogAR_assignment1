@@ -6,6 +6,33 @@ from geometry_msgs.msg import PoseStamped
 from assignment1.msg import SensorFusion
 
 class SLAMNode:
+    """
+    A ROS node for Simultaneous Localization and Mapping (SLAM).
+
+    This node subscribes to sensor fusion data, processes it to estimate the robot's
+    current pose, and publishes the estimated state.
+
+    Topics:
+        - Subscribed:
+            - /sensor_fusion (SensorFusion): Sensor fusion data containing IMU and odometry information.
+
+        - Published:
+            - /slam/estimated_state (PoseStamped): The estimated state of the robot.
+
+    Attributes:
+        estimated_state_pub (rospy.Publisher): Publishes the estimated state.
+        current_pose (PoseStamped): Stores the current estimated pose.
+        rate (rospy.Rate): Controls the loop rate of the node.
+    
+    Methods:
+        __init__():
+            Initializes the node, sets up subscribers and publishers, and starts the main loop.
+        sensor_fusion_callback(msg):
+            Callback function for processing sensor fusion data.
+        publish_estimated_state():
+            Publishes the current estimated state.
+    """
+
     def __init__(self):
         rospy.init_node('slam_node')
         rospy.loginfo("SLAM Node initialized.")
@@ -38,9 +65,6 @@ class SLAMNode:
             self.rate.sleep()
 
     def sensor_fusion_callback(self, msg):
-        """
-        Process sensor fusion data and update the estimated state
-        """
         rospy.loginfo_throttle(2.0, "Received sensor fusion data")
         
         # Dummy SLAM processing - in a real system, this would implement 
@@ -62,9 +86,6 @@ class SLAMNode:
         self.current_pose.header.stamp = rospy.Time.now()
 
     def publish_estimated_state(self):
-        """
-        Publish the current estimated state
-        """
         # Update timestamp before publishing
         self.current_pose.header.stamp = rospy.Time.now()
         self.estimated_state_pub.publish(self.current_pose)

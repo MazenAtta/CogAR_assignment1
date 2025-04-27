@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to COGAR_Assignment1's documentation!
-=========================================
+=============================================
 
 .. toctree::
    :maxdepth: 2
