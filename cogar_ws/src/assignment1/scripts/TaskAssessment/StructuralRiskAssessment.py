@@ -22,15 +22,14 @@ class StructuralRiskAssessmentNode:
         # Sensor subscriptions
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
         rospy.Subscriber('/perception/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
-        rospy.Subscriber('/task_executor', String, self.task_executor_callback)
+        rospy.Subscriber('/task_executor/task', String, self.task_executor_callback)
         rospy.Subscriber('/perception/image_processing', Image, self.image_processing_callback)
         
         # Publishers
         self.alert_publisher = rospy.Publisher('/risk_alert', String, queue_size=10)
         self.risk_level_publisher = rospy.Publisher('/risk_level', Float32, queue_size=10)
         
-        # Service client for requesting movement
-        self.move_closer_service = rospy.ServiceProxy('/task_executor/move_closer', Speaker)
+        self.move_closer = rospy.Publisher('/task_executor/requests', String, queue_size=10)
         
         # Rate for the main loop
         self.rate = rospy.Rate(1)  # 1 Hz loop
@@ -106,13 +105,8 @@ class StructuralRiskAssessmentNode:
 
     def request_move_closer(self):
         rospy.loginfo("Requesting robot to move closer to the structure...")
-        try:
-            response = self.move_closer_service("move_closer")
-            rospy.loginfo(f"Move closer request response: {response.success}")
-            return response.success
-        except rospy.ServiceException as e:
-            rospy.logerr(f"Service call failed: {e}")
-            return False
+        self.move_closer.publish("move_closer")
+        return True
 
     def log_results(self, risk_level):
         rospy.loginfo(f"[{rospy.get_time()}] Current Risk Level: {risk_level}")

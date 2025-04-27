@@ -19,7 +19,7 @@ class VictimDetectionAndReportingNode:
         # Subscribers
         rospy.Subscriber('/perception/processed_audio', String, self.audio_callback)
         rospy.Subscriber('/slam/estimated_state', PoseStamped, self.estimated_state_callback)
-        rospy.Subscriber('/task_executor', String, self.task_executor_callback)
+        rospy.Subscriber('/task_executor/task', String, self.task_executor_callback)
         rospy.Subscriber('/perception/image_processing', Image, self.image_processing_callback)
 
         # Publishers
