@@ -43,12 +43,17 @@ The `integration_test.py` script tests the full workflow of the system, focusing
 
 **Results Summary:**
 
-| Test Case                   | Expected Result                                 | Actual Result                                  | Status |
-|-----------------------------|------------------------------------------------|-----------------------------------------------|--------|
-| Risk Assessment Alert       | Alert containing "High Risk"                    | Alert containing "High Risk"                   | PASS   |
-| Triage Classification       | "Red - Immediate Attention" classification      | "Red - Immediate Attention" classification     | PASS   |
-| Victim Detection            | Alert with victim location                      | Alert with "Human voice detected at Position"  | PASS   |
-| Task Execution              | Task status update to "TASK: None"              | Task status update to "TASK: None"             | PASS   |
++-----------------------------+--------------------------------------------------+-----------------------------------------------+--------+
+| Test Case                   | Expected Result                                 | Actual Result                                | Status |
++=============================+==================================================+===============================================+========+
+| Risk Assessment Alert       | Alert containing "High Risk"                    | Alert containing "High Risk"                  | PASS   |
++-----------------------------+--------------------------------------------------+-----------------------------------------------+--------+
+| Triage Classification       | "Red - Immediate Attention" classification      | "Red - Immediate Attention" classification    | PASS   |
++-----------------------------+--------------------------------------------------+-----------------------------------------------+--------+
+| Victim Detection            | Alert with victim location                      | Alert with "Human voice detected at Position" | PASS   |
++-----------------------------+--------------------------------------------------+-----------------------------------------------+--------+
+| Task Execution              | Task status update to "TASK: None"              | Task status update to "TASK: None"            | PASS   |
++-----------------------------+--------------------------------------------------+-----------------------------------------------+--------+
 
 The integration tests demonstrate that all major components are communicating successfully and the system meets its functional requirements. All tests passed, indicating that the components are correctly integrated and working together as expected.
 
