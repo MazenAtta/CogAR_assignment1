@@ -51,8 +51,8 @@ html_show_sourcelink = False
 
 html_context = {
     "display_github": True,    # Enables GitHub ribbon/link
-    "github_user": "ACarfi",    # GitHub username (replace with yours)
-    "github_repo": "Test",      # Repository name (replace with yours)
+    "github_user": "MazenAtta",    # GitHub username (replace with yours)
+    "github_repo": "CogAR_assignment1",      # Repository name (replace with yours)
     "github_version": "main",   # Branch name (main/master)
     "conf_py_path": "/docs/source/",  # Documentation path in repo
 }
