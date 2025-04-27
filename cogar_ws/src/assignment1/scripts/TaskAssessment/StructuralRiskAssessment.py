@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import String, Float32
 from sensor_msgs.msg import Image, Range, LaserScan
-from geometry_msgs.msg import WrenchStamped
-from assignment1.msg import SensorFusion
+from geometry_msgs.msg import WrenchStamped, PoseStamped
 
 class StructuralRiskAssessmentNode:
     def __init__(self):
@@ -14,80 +13,107 @@ class StructuralRiskAssessmentNode:
 
         # Flags to simulate data acquisition
         self.force_data = None
-        self.fused_data = None
+        self.slam_data = None
+        self.task_executor_data = None
+        self.image_processing_data = None
+        
         # Sensor subscriptions
         rospy.Subscriber('/wrist_right_ft', WrenchStamped, self.force_sensor_callback)
+        rospy.Subscriber('/slam/estimated_state', PoseStamped, self.slam_callback)
+        rospy.Subscriber('/task_executor', String, self.task_executor_callback)
+        rospy.Subscriber('/image_processing', Image, self.image_processing_callback)
         
-        # Subscribe to sensor fusion component
-        rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
-
-        self.alert_publisher = rospy.Publisher('/supervisor', String, queue_size=10)
-        self.task_executer_publisher = rospy.Publisher('/TaskExecuter', String, queue_size=10)
-
+        # Publishers
+        self.alert_publisher = rospy.Publisher('/risk_alert', String, queue_size=10)
+        self.risk_level_publisher = rospy.Publisher('/risk_level', Float32, queue_size=10)
+        
+        # Service client for requesting movement
+        self.move_closer_service = rospy.ServiceProxy('/task_executor/move_closer', Speaker)
+        
         # Rate for the main loop
         self.rate = rospy.Rate(1)  # 1 Hz loop
 
         while not rospy.is_shutdown():
             if self.ready_for_assessment():
-                self.assessment_done = True
                 self.assessment_callback()
             self.rate.sleep()
 
     def ready_for_assessment(self):
-        # Check if both force data and fused data are available
-        return self.force_data is not None and self.fused_data is not None
+        # Check if all required data is available
+        return (self.force_data is not None and 
+                self.slam_data is not None and 
+                self.task_executor_data is not None and 
+                self.image_processing_data is not None)
         
     def force_sensor_callback(self, msg):
         self.force_data = msg
         rospy.loginfo("Force sensor data received.")
-
-    def sensor_fusion_callback(self, msg):
-        rospy.loginfo("Sensor fusion data received.")
-        self.fused_data = msg
+        
+    def slam_callback(self, msg):
+        self.slam_data = msg
+        rospy.loginfo("SLAM estimated state received.")
+        
+    def task_executor_callback(self, msg):
+        self.task_executor_data = msg
+        rospy.loginfo("Task executor data received.")
+        
+    def image_processing_callback(self, msg):
+        self.image_processing_data = msg
+        rospy.loginfo("Image processing data received.")
 
     def assessment_callback(self):
-        rospy.loginfo("Received assessment request.")
+        rospy.loginfo("Performing structural risk assessment.")
         
         processed_data = self.process_data()
         if self.identify_cracks(processed_data):
             risk_level = self.classify_risk()
             if risk_level >= 0.7:
-                self.send_alert()
+                self.send_alert(risk_level)
             
             elif risk_level < 0.7:
                 self.log_results(risk_level)
+                self.risk_level_publisher.publish(Float32(risk_level))
 
             else:
-                if self.move_closer():
-                    self.classify_risk()
+                if self.request_move_closer():
+                    risk_level = self.classify_risk()
                     if risk_level >= 0.7:
-                        self.send_alert()
+                        self.send_alert(risk_level)
         else:
             rospy.loginfo("No cracks detected.")
 
     def process_data(self):
-        rospy.loginfo("Processing data coming from sensor fusion node and force sensor...")
+        rospy.loginfo("Processing data from SLAM, force sensor, task executor, and image processing...")
+        # This is a dummy function - no actual processing is done
         return "processed_data"
 
     def identify_cracks(self, data):
-        rospy.loginfo("Identifying cracks from data...")
-        return True  # Always returns True in dummy code
+        rospy.loginfo("Identifying potential structural issues...")
+        # Dummy function that always detects issues
+        return True
 
     def classify_risk(self):
-        rospy.loginfo("Classifying structural risk...")
-        return 0.8  # Dummy risk level
+        rospy.loginfo("Classifying structural risk level...")
+        # Dummy risk classification that returns a high risk value
+        return 0.8
 
-    def send_alert(self):
-        rospy.logwarn("High Risk Detected! Sending Alert to Operator.")
-        self.alert_publisher.publish('High Risk Detected!')
+    def send_alert(self, risk_level):
+        rospy.logwarn(f"ALERT: High Risk Level {risk_level} Detected!")
+        self.alert_publisher.publish(f"ALERT: Risk Level {risk_level}")
+        self.risk_level_publisher.publish(Float32(risk_level))
 
-    def move_closer(self):
-        rospy.loginfo("Moving closer to the structure...")
-        self.task_executer_publisher.publish('move_closer')
-        return True  # Simulate success
+    def request_move_closer(self):
+        rospy.loginfo("Requesting robot to move closer to the structure...")
+        try:
+            response = self.move_closer_service("move_closer")
+            rospy.loginfo(f"Move closer request response: {response.success}")
+            return response.success
+        except rospy.ServiceException as e:
+            rospy.logerr(f"Service call failed: {e}")
+            return False
 
     def log_results(self, risk_level):
-        rospy.loginfo(f"[{rospy.get_time()}] Risk Level: {risk_level}")
+        rospy.loginfo(f"[{rospy.get_time()}] Current Risk Level: {risk_level}")
 
 if __name__ == '__main__':
     try:
