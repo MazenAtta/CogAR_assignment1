@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; Documentation 1.0 documentation</title>
+  <title>Architecture &mdash; Documentation 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -43,8 +43,28 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Cognitive Architecture for Post-Earthquake Search and Rescue</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#component-diagram">Component Diagram</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#design-patterns-in-the-architecture">Design Patterns in the Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#behavioral-diagrams">Behavioral Diagrams</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#triagesystem-sequence-diagram">TriageSystem Sequence Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structuralriskassessment-activity-diagram">StructuralRiskAssessment Activity Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#component-interfaces">Component Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#task-assessment-components">Task Assessment Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#perception-components">Perception Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#navigation-components">Navigation Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robot-control-components">Robot Control Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-considerations">Integration Considerations</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="code.html">Code Documentation</a></li>
 </ul>
 
@@ -62,7 +82,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Architecture</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -72,7 +92,203 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading"></a></h1>
+<section id="component-diagram">
+<h2>Component Diagram<a class="headerlink" href="#component-diagram" title="Permalink to this heading"></a></h2>
+<p>The component diagram illustrates the overall structure of the Cognitive Architecture system, which is designed for rescue operations in disaster scenarios. The architecture follows a modular approach with clear separation of concerns, allowing components to be developed, tested, and maintained independently.</p>
+<figure class="align-center" id="id1">
+<img alt="Component Diagram" src="_images/ComponentDiagram.svg" /><figcaption>
+<p><span class="caption-text">Component diagram of the CogAR system</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<section id="design-patterns-in-the-architecture">
+<h3>Design Patterns in the Architecture<a class="headerlink" href="#design-patterns-in-the-architecture" title="Permalink to this heading"></a></h3>
+<p>The following design patterns are recommended for implementation within the architecture:</p>
+<ol class="arabic simple">
+<li><p><strong>Observer Pattern</strong>: Used in the communication between the Task Executor and other components (TriageSystem, StructuralRiskAssessment, VictimDetectionAndReporting). Components subscribe to task updates and act upon them.</p></li>
+<li><p><strong>Strategy Pattern</strong>: Implemented in the TriageSystem where different triage classification algorithms can be swapped based on scenario requirements without changing the core functionality.</p></li>
+<li><p><strong>Facade Pattern</strong>: The Perception module (SensorFusion) acts as a facade, simplifying access to complex subsystems like Image Processing, Object Detection, and Point Cloud Processing.</p></li>
+<li><p><strong>Command Pattern</strong>: Used in TaskExecutor to encapsulate task requests as objects, allowing for queuing, prioritization, and cancellation of tasks.</p></li>
+<li><p><strong>Decorator Pattern</strong>: Could be applied to add additional risk assessment capabilities to the StructuralRiskAssessment component without modifying its core code.</p></li>
+</ol>
+</section>
+</section>
+<section id="behavioral-diagrams">
+<h2>Behavioral Diagrams<a class="headerlink" href="#behavioral-diagrams" title="Permalink to this heading"></a></h2>
+<section id="triagesystem-sequence-diagram">
+<h3>TriageSystem Sequence Diagram<a class="headerlink" href="#triagesystem-sequence-diagram" title="Permalink to this heading"></a></h3>
+<figure class="align-center" id="id2">
+<img alt="Triage System Sequence Diagram" src="_images/TriageSystem_Sequence.svg" /><figcaption>
+<p><span class="caption-text">Sequence diagram for the TriageSystem</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The TriageSystem sequence diagram illustrates the interaction between the TriageSystem component and other system components during a victim triage operation. Key aspects of this behavior include:</p>
+<ol class="arabic simple">
+<li><p><strong>Task Initiation</strong>: The sequence begins with the TaskExecutor initiating a triage task.</p></li>
+<li><p><strong>Data Collection</strong>: The TriageSystem requests and receives visual and audio data from the respective processing components.</p></li>
+<li><p><strong>Victim Interaction</strong>: The system engages with potential victims through the Speaker component, asking if they are okay and waiting for responses.</p></li>
+<li><p><strong>Classification</strong>: Based on collected data and responses, the TriageSystem classifies the victim’s condition.</p></li>
+<li><p><strong>Reporting</strong>: The classification is sent back to the TaskExecutor, completing the triage process.</p></li>
+</ol>
+<p>This sequence was chosen because it effectively demonstrates the collaborative nature of the system components while maintaining a clear separation of concerns. Each component has a specific responsibility, and their interactions are well-defined, facilitating system maintenance and expansion.</p>
+</section>
+<section id="structuralriskassessment-activity-diagram">
+<h3>StructuralRiskAssessment Activity Diagram<a class="headerlink" href="#structuralriskassessment-activity-diagram" title="Permalink to this heading"></a></h3>
+<figure class="align-center" id="id3">
+<img alt="Structural Risk Assessment Activity Diagram" src="_images/StructuralRiskAssessment.svg" /><figcaption>
+<p><span class="caption-text">Activity diagram for the StructuralRiskAssessment</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>The StructuralRiskAssessment activity diagram depicts the workflow for assessing structural risks in disaster environments. Key elements include:</p>
+<ol class="arabic simple">
+<li><p><strong>Parallel Processing</strong>: Multiple data streams (force-torque, vision, sensor fusion) are processed simultaneously.</p></li>
+<li><p><strong>Risk Classification</strong>: Various risk factors are aggregated and classified to determine an overall risk level.</p></li>
+<li><p><strong>Decision Points</strong>: Based on the risk level, different actions are taken, such as sending alerts or requesting robot repositioning.</p></li>
+<li><p><strong>Continuous Monitoring</strong>: The process operates in a continuous loop, constantly reassessing risk as new data arrives.</p></li>
+</ol>
+<p>This activity diagram was selected because it clearly illustrates the complex decision-making process involved in risk assessment, showing both the parallel processing of multiple inputs and the sequential decision logic that follows. The activity diagram effectively communicates how the component handles different scenarios and prioritizes safety in hazardous environments.</p>
+</section>
+</section>
+<section id="component-interfaces">
+<h2>Component Interfaces<a class="headerlink" href="#component-interfaces" title="Permalink to this heading"></a></h2>
+<section id="task-assessment-components">
+<h3>Task Assessment Components<a class="headerlink" href="#task-assessment-components" title="Permalink to this heading"></a></h3>
+<p><strong>TaskExecutor</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Service-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/task_executor/task</cite>: Broadcasts the current task being executed (strongly-typed)
+- <cite>/task_status</cite>: Publishes status updates of current tasks (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/task_executor/requests</cite>: Receives task requests from other components (strongly-typed)
+- <cite>/mission_planner</cite>: Receives high-level mission directives (strongly-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Acts as a central coordinator, maintaining state about current tasks, priorities, and execution status. Follows a service-oriented paradigm where it processes requests and manages task lifecycle.</p></li>
+</ul>
+<p><strong>TriageSystem</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateless</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/triage/classification</cite>: Publishes victim triage classifications (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/task_executor/task</cite>: Receives task assignments (strongly-typed)
+- <cite>/perception/processed_audio</cite>: Receives processed audio data for victim detection (loosely-typed)
+- <cite>/perception/image_processing</cite>: Receives processed image data for victim assessment (loosely-typed)</p></li>
+<li><p><strong>Services Called</strong>:
+- <cite>Speaker</cite>: Requests the system to speak to potential victims</p></li>
+<li><p><strong>Interface Characteristics</strong>: Primarily processes incoming data streams and produces classifications. Stateless in nature, where each classification depends only on current inputs without maintaining history.</p></li>
+</ul>
+<p><strong>StructuralRiskAssessment</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/risk_alert</cite>: Publishes immediate risk alerts (strongly-typed)
+- <cite>/risk_level</cite>: Publishes ongoing risk assessment levels (strongly-typed)
+- <cite>/task_executor/requests</cite>: Requests new tasks based on risk assessment (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/wrist_right_ft</cite>: Receives force-torque sensor data (strongly-typed)
+- <cite>/perception/sensor_fusion</cite>: Receives fused sensor data (strongly-typed)
+- <cite>/task_executor/task</cite>: Receives task assignments (strongly-typed)
+- <cite>/perception/image_processing</cite>: Receives processed image data (loosely-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Maintains state regarding ongoing risk assessments, environmental conditions, and historical data to provide context-aware risk analysis.</p></li>
+</ul>
+<p><strong>VictimDetectionAndReporting</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/victim_detection/alert</cite>: Publishes victim detection alerts (strongly-typed)
+- <cite>/victim_detection/location</cite>: Publishes victim location data (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/perception/processed_audio</cite>: Receives processed audio for victim detection (loosely-typed)
+- <cite>/slam/estimated_state</cite>: Receives robot pose data (strongly-typed)
+- <cite>/task_executor/task</cite>: Receives task assignments (strongly-typed)
+- <cite>/perception/image_processing</cite>: Receives processed image data (loosely-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Stateful as it tracks detected victims and their locations over time. Integrates various data sources to build and maintain a victim map.</p></li>
+</ul>
+</section>
+<section id="perception-components">
+<h3>Perception Components<a class="headerlink" href="#perception-components" title="Permalink to this heading"></a></h3>
+<p><strong>SensorFusion</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateless</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/perception/sensor_fusion</cite>: Publishes fused sensor data (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/perception/image_processing</cite>: Receives processed image data (loosely-typed)
+- <cite>/perception/object_detection</cite>: Receives object detection data (strongly-typed)
+- <cite>/perception/point_cloud</cite>: Receives point cloud data (strongly-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Acts as an aggregation point for multiple data streams, processing them into a unified representation. Stateless as it operates on current sensor data without maintaining history.</p></li>
+</ul>
+<p><strong>ImageProcessing</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateless</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/perception/image_processing</cite>: Publishes processed image data (loosely-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- Raw camera input</p></li>
+<li><p><strong>Interface Characteristics</strong>: Focuses on transforming raw image data into more useful formats. Stateless, processing each frame independently.</p></li>
+</ul>
+<p><strong>AudioProcessing</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateless</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/perception/processed_audio</cite>: Publishes processed audio data (loosely-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- Raw audio input</p></li>
+<li><p><strong>Interface Characteristics</strong>: Transforms raw audio signals into meaningful data. Stateless, processing each audio segment independently.</p></li>
+</ul>
+</section>
+<section id="navigation-components">
+<h3>Navigation Components<a class="headerlink" href="#navigation-components" title="Permalink to this heading"></a></h3>
+<p><strong>PathPlanner</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Service-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/path_planner/setpoint</cite>: Publishes the planned path as a setpoint (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/slam/estimated_state</cite>: Receives the robot’s current pose from SLAM (strongly-typed)
+- <cite>/object_detection</cite>: Receives detected object poses (strongly-typed)
+- <cite>/task_executioner</cite>: Receives task instructions (strongly-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Maintains state regarding the robot’s current position, task instructions, and object positions to generate appropriate path plans. Acts as a service provider for motion planning.</p></li>
+</ul>
+<p><strong>SLAM (Simultaneous Localization and Mapping)</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/slam/estimated_state</cite>: Publishes the estimated state of the robot (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/sensor_fusion</cite>: Receives sensor fusion data containing IMU and odometry information (strongly-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Maintains an internal state that represents the robot’s position in the environment and continuously updates this state based on incoming sensor data. Provides critical positional awareness to other system components.</p></li>
+</ul>
+</section>
+<section id="robot-control-components">
+<h3>Robot Control Components<a class="headerlink" href="#robot-control-components" title="Permalink to this heading"></a></h3>
+<p><strong>PlatformController</strong></p>
+<ul class="simple">
+<li><p><strong>Interface Type</strong>: Data-oriented, Stateful</p></li>
+<li><p><strong>Publishers</strong>:
+- <cite>/motor_driver/left</cite>: Publishes commands to the left motor (strongly-typed)
+- <cite>/motor_driver/right</cite>: Publishes commands to the right motor (strongly-typed)</p></li>
+<li><p><strong>Subscribers</strong>:
+- <cite>/sensor_fusion</cite>: Receives sensor fusion data for feedback control (strongly-typed)
+- <cite>/path_planner/setpoint</cite>: Receives path setpoints to follow (strongly-typed)</p></li>
+<li><p><strong>Interface Characteristics</strong>: Acts as the low-level controller that translates high-level path plans into motor commands. Maintains state regarding the current control objectives and sensor feedback to implement closed-loop control.</p></li>
+</ul>
+</section>
+</section>
+<section id="integration-considerations">
+<h2>Integration Considerations<a class="headerlink" href="#integration-considerations" title="Permalink to this heading"></a></h2>
+<p>The architecture’s design emphasizes loose coupling between components through well-defined interfaces, primarily using ROS topics for communication. This approach offers several advantages:</p>
+<ol class="arabic simple">
+<li><p><strong>Fault Isolation</strong>: Issues in one component are less likely to cascade throughout the system.</p></li>
+<li><p><strong>Independent Development</strong>: Teams can work on different components simultaneously with minimal coordination overhead.</p></li>
+<li><p><strong>Testing Flexibility</strong>: Components can be tested in isolation using mock data publishers and subscribers.</p></li>
+<li><p><strong>Scalability</strong>: New components can be added to the system without modifying existing ones, as long as they adhere to the established communication protocols.</p></li>
+</ol>
+<p>The selected behavioral diagrams demonstrate how these independently developed components work together to accomplish complex tasks in disaster response scenarios, providing both clarity for development and a foundation for system verification and validation.</p>
+</section>
+</section>
+
 
            </div>
           </div>
