@@ -2,56 +2,76 @@
 
 import rospy
 from std_msgs.msg import String
-from assignment1.msg import SensorFusion
+from geometry_msgs.msg import PoseStamped
 
 class VictimDetectionAndReportingNode:
     def __init__(self):
         rospy.init_node('victim_detection_and_reporting')
-
         rospy.loginfo("Victim Detection Node Initialized. Waiting for sensor data...")
 
-        self.rgbd_info = None
+        # Internal data
+        self.current_pose = None
+        self.audio_detection = None
+        self.task_instruction = None
+        
+        # Subscribers
+        rospy.Subscriber('/perception/processed_audio', String, self.audio_callback)
+        rospy.Subscriber('/slam/estimated_state', PoseStamped, self.estimated_state_callback)
+        rospy.Subscriber('/task_executor', String, self.task_executor_callback)
 
-        # Subscribe to sensor fusion data
-        rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
+        # Publisher
+        self.alert_pub = rospy.Publisher('/victim_detection/alert', String, queue_size=10)
 
-        # Publisher to inform TriageSystem (could also notify supervisor or task manager)
-        self.victim_pub = rospy.Publisher('/victim_detection/found_victims', String, queue_size=10)
-
-        self.rate = rospy.Rate(1)
+        self.rate = rospy.Rate(1)  # 1 Hz
 
         while not rospy.is_shutdown():
             if self.ready_for_detection():
                 self.detect_victims()
             self.rate.sleep()
 
-    def sensor_fusion_callback(self, msg):
-        # Assume RGB-D camera info is embedded in SensorFusion message
-        self.rgbd_info = msg.image
-        rospy.loginfo(f"RGB-D Info received for victim detection")
+    def audio_callback(self, msg):
+        self.audio_detection = msg.data
+        rospy.loginfo_throttle(5.0, "Audio processed data received")
+
+    def estimated_state_callback(self, msg):
+        self.current_pose = msg
+        rospy.loginfo_throttle(5.0, "Current position received")
+
+    def task_executor_callback(self, msg):
+        self.task_instruction = msg.data
+        rospy.loginfo("Received task instruction: %s", self.task_instruction)
 
     def ready_for_detection(self):
-        return self.rgbd_info is not None
+        # We need audio data and current position to detect victims
+        return self.audio_detection is not None and self.current_pose is not None
 
     def detect_victims(self):
         rospy.loginfo("Detecting victims based on sensor data...")
 
-        victim_found = self.process_rgbd_data()
-
+        # Simple dummy detection logic
+        victim_found = False
+        
+        # Check if processed audio indicates human voice
+        if self.audio_detection and "Human voice" in self.audio_detection:
+            victim_found = True
+            victim_type = "Human voice detected"
+        elif rospy.get_time() % 60 < 10:  # Random detection every minute
+            victim_found = True
+            victim_type = "Visual detection of victim"
+        
         if victim_found:
-            self.report_victim()
+            self.report_victim(victim_type)
         else:
             rospy.loginfo("No victims detected in current scan.")
 
-    def process_rgbd_data(self):
-        rospy.loginfo("Processing RGB-D data for victim detection...")
-        # Simulated victim detection logic
-        # In a real scenario, this would involve image processing and possibly machine learning
-        return True
-
-    def report_victim(self):
-        rospy.logwarn("Victim detected! Reporting to system...")
-        self.victim_pub.publish("Victim Detected at Location XYZ")
+    def report_victim(self, victim_type):
+        # Create alert message with location and detection type
+        location = f"Position: ({self.current_pose.pose.position.x:.2f}, {self.current_pose.pose.position.y:.2f})"
+        alert_msg = f"ALERT: {victim_type} at {location}"
+        
+        # Publish alert
+        self.alert_pub.publish(alert_msg)
+        rospy.loginfo("Published victim alert: %s", alert_msg)
 
 if __name__ == '__main__':
     try:

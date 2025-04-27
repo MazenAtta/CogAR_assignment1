@@ -4,7 +4,6 @@ import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import Image, Range, LaserScan
 from geometry_msgs.msg import WrenchStamped
-# Import the FusedData message type (update the package name if needed)
 from assignment1.msg import SensorFusion
 
 class StructuralRiskAssessmentNode:

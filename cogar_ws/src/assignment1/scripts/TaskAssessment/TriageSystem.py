@@ -13,12 +13,10 @@ class TriageSystemNode:
 
         self.rgbd_info = None
         self.vocal_response = None
-        self.victim_detected = False  # NEW: flag to know when a victim is found
 
         # Subscriptions
         rospy.Subscriber('/sensor_fusion', SensorFusion, self.sensor_fusion_callback)
         rospy.Subscriber('/audio_processing/vocal_response', String, self.audio_callback)
-        rospy.Subscriber('/victim_detection/found_victims', String, self.victim_detection_callback)  # NEW: listen for victims
 
         # Publisher
         self.classification_pub = rospy.Publisher('/triage/classification', String, queue_size=10)
@@ -44,12 +42,8 @@ class TriageSystemNode:
         rospy.loginfo(f"Audio Response Received: {self.vocal_response}")
         return True
 
-    def victim_detection_callback(self, msg):
-        rospy.loginfo(f"Victim detected: {msg.data}")
-        self.victim_detected = True  # NEW: set flag when victim is detected
-
     def ready_for_triage(self):
-        return self.rgbd_info is not None and self.vocal_response is not None and self.victim_detected
+        return self.rgbd_info is not None and self.vocal_response is not None
 
     def perform_triage(self):
         rospy.loginfo("Performing triage assessment...")
@@ -67,9 +61,6 @@ class TriageSystemNode:
         triage_level = self.classify_victim(conscious, condition)
         rospy.loginfo(f"Triage Result: {triage_level}")
         self.classification_pub.publish(triage_level)
-
-        # Reset victim detected flag after handling
-        self.victim_detected = False
 
     def ask_question(self, question):
         rospy.loginfo(f"Sending question to speaker: {question}")
