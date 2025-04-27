@@ -18,13 +18,24 @@
     <node pkg="assignment1" type="speaker_service.py" name="speaker_service_node" output="screen"/>
     
     <!-- Structural Risk Assessment Node -->
-    <node pkg="assignment1" type="StructuralRiskAssessment.py" name="structural_risk_assessment_node" output="screen"/>
+    <node pkg="assignment1" type="StructuralRiskAssessment.py" name="structural_risk_assessment_node" output="screen" launch-prefix = "konsole -e"/>
     
     <!-- Task Execution Node -->
-    
+    <node pkg="assignment1" type="TaskExecution.py" name="task_execution_node" output="screen"/>
+
+    <!-- Platform_Controller Node -->
+    <node pkg="assignment1" type="Platfor_Controller.py" name="controller_node" output="screen"/>
+
+    <!-- SLAM Node -->
+    <node pkg="assignment1" type="SLAM.py" name="slam_node" output="screen"/>
+
+    <!-- AudioProcessing Node -->
+    <node pkg="assignment1" type="AudioProcessing.py" name="audio_processing_node" output="screen"/>
+
+
     <!-- Triage System Node -->
-    <node pkg="assignment1" type="TriageSystem.py" name="triage_system_node" output="screen"/>
+    <node pkg="assignment1" type="TriageSystem.py" name="triage_system_node" output="screen" launch-prefix = "konsole -e"/>
     
     <!-- Victim Detection and Reporting Node -->
-    <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection_node" output="screen"/>
+    <node pkg="assignment1" type="VictimDetectionAndReporting.py" name="victim_detection_node" output="screen" launch-prefix = "konsole -e"/>
 </launch>
