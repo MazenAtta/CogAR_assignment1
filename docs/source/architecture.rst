@@ -31,7 +31,7 @@ Behavioral Diagrams
 -------------------
 
 TriageSystem Sequence Diagram
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: images/TriageSystem_Sequence.svg
    :align: center

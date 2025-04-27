@@ -31,7 +31,7 @@ class IntegrationTest(unittest.TestCase):
         rospy.Subscriber('/risk_alert', String, self.risk_alert_cb)
         rospy.Subscriber('/victim_detection/alert', String, self.victim_alert_cb)
         rospy.Subscriber('/triage/classification', String, self.classification_cb)
-        rospy.Subscriber('/task_status', String, self.task_status_cb)
+        rospy.Subscriber('/task_executor/task', String, self.task_status_cb)
         rospy.Subscriber('/motor_driver/left/status', String, self.left_motor_status_cb)
         rospy.Subscriber('/motor_driver/right/status', String, self.right_motor_status_cb)
         rospy.Subscriber('/perception/sensor_fusion', SensorFusion, self.fused_data_cb)
@@ -100,8 +100,9 @@ class IntegrationTest(unittest.TestCase):
         self.assertIn("ALERT: Human voice detected at Position: (0.00, 0.00, 0.00)", self.victim_alert, "No victim detected")
 
         # Test Task Executor
-        #self.assertIsNotNone(self.task_status, "No task status published")
-        #self.assertIn("TASK: None", self.task_status, "Task not completed")
+        self.assertIsNotNone(self.task_status, "No task status published")
+        self.assertIn("TASK: None", self.task_status, "Task not completed")
+
 
     def tearDown(self):
         pass
