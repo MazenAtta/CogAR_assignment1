@@ -13,6 +13,7 @@ class PlatformControllerNode:
     and publishes motor commands to control the platform's movement.
 
     Topics:
+    =======
         - Subscribed:
             - /sensor_fusion (custom_msgs.msg.SensorFusion): Topic providing sensor fusion data.
             - /path_planner/setpoint (custom_msgs.msg.Path): Topic providing path setpoints.
@@ -21,12 +22,16 @@ class PlatformControllerNode:
             - /motor_driver/right (geometry_msgs.msg.Twist): Topic for publishing right motor commands.
 
     Attributes:
+    ===========
+    Attributes:
         - left_motor_pub (rospy.Publisher): Publisher for the left motor commands.
         - right_motor_pub (rospy.Publisher): Publisher for the right motor commands.
         - current_path (custom_msgs.msg.Path): Stores the latest path setpoint data.
         - current_sensor_data (custom_msgs.msg.SensorFusion): Stores the latest sensor fusion data.
         - rate (rospy.Rate): Controls the loop rate of the node.
 
+    Methods:
+    ========
     Methods:
         - __init__(): Initializes the node, sets up subscribers and publishers, and starts the main control loop.
         - sensor_fusion_callback(msg): Callback function for the sensor fusion data subscriber.

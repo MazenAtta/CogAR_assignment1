@@ -112,6 +112,7 @@ class TaskExecutorNode:
             rospy.loginfo(f"Completed task: {self.current_task}")
             self.status_pub.publish("STATUS: Task completed")
             self.current_task = None
+        self.task_pub.publish("TASK: None")
 
 if __name__ == '__main__':
     try:

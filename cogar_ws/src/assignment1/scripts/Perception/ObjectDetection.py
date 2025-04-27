@@ -12,16 +12,21 @@ class ObjectDetectionNode:
     based on the received data, and publishes the detected objects' poses.
 
     Topics:
+    =======
         - Subscribed:
             - /perception/image_processing (sensor_msgs.msg.Image): Topic providing processed image data.
         - Published:
             - /perception/detected_objects (geometry_msgs.msg.PoseStamped): Topic for publishing detected objects' poses.
 
     Attributes:
+    ===========
+    Attributes:
         - detected_objects_pub (rospy.Publisher): Publisher for detected objects' poses.
         - processed_data (str): Stores the processed image data received from the subscriber.
         - rate (rospy.Rate): Controls the loop rate of the node.
 
+    Methods:
+    ========
     Methods:
         - __init__(): Initializes the node, sets up subscribers and publishers, and starts the main loop.
         - processed_image_callback(msg): Callback function for the processed image data subscriber.

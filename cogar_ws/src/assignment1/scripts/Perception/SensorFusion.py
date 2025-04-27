@@ -12,6 +12,7 @@ class SensorFusionNode:
     This node subscribes to topics providing data from various sensors (PointCloud, Image, Odometry, IMU), and publishes fused sensor data.
 
     Topics:
+    =======
         - Subscribed:
             - /perception/pointcloud_processing (PointCloud2): Point cloud data from the perception module.
             - /perception/image_processing (Image): Image data from the perception module.
@@ -21,6 +22,8 @@ class SensorFusionNode:
             - /perception/sensor_fusion (SensorFusion): Fused sensor data.
     
     Attributes:
+    ===========
+    Attributes:
         fused_data_pub (rospy.Publisher): Publishes fused sensor data.
         pointcloud_data (PointCloud2): Stores point cloud data.
         image_data (Image): Stores image data.
@@ -28,6 +31,8 @@ class SensorFusionNode:
         imu_data (dict): Simulated IMU data.
         rate (rospy.Rate): Controls the loop rate of the node.
 
+    Methods:
+    ========
     Methods:
         __init__():
             Initializes the node, sets up subscribers and publishers, and starts the main loop.

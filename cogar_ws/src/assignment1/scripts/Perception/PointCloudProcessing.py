@@ -14,6 +14,7 @@ class PointCloudProcessingNode:
     processes the data, and publishes a point cloud representation.
 
     Topics:
+    =======
         - Subscribed:
             - /sonar_base (sensor_msgs.msg.Range): Topic providing sonar data.
             - /scan (sensor_msgs.msg.LaserScan): Topic providing LIDAR scan data.
@@ -23,6 +24,8 @@ class PointCloudProcessingNode:
             - /perception/pointcloud_processing (sensor_msgs.msg.PointCloud2): Topic for publishing processed point cloud data.
 
     Attributes:
+    ===========
+    Attributes:
         - pointcloud_pub (rospy.Publisher): Publisher for processed point cloud data.
         - sonar_data (sensor_msgs.msg.Range): Stores the sonar data received from the subscriber.
         - lidar_data (sensor_msgs.msg.LaserScan): Stores the LIDAR scan data received from the subscriber.
@@ -30,6 +33,8 @@ class PointCloudProcessingNode:
         - depth_data (sensor_msgs.msg.Image): Stores the depth image data received from the subscriber.
         - rate (rospy.Rate): Controls the loop rate of the node.
 
+    Methods:
+    ========
     Methods:
         - __init__(): Initializes the node, sets up subscribers and publishers, and starts the main loop.
         - sonar_callback(msg): Callback function for the sonar data subscriber.

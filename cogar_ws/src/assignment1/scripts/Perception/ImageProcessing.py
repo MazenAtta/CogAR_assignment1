@@ -11,6 +11,7 @@ class ImageProcessingNode:
     This node subscribes to RGB-D camera, processes the images, and publishes the processed image data to a specified topic.
 
     Topics:
+    =======
         - Subscribed:
             - /xtion/rgb/image_raw (sensor_msgs.msg.Image): RGB image data from the camera.
             - /xtion/depth/image_raw (sensor_msgs.msg.Image): Depth image data from the camera.
@@ -18,10 +19,14 @@ class ImageProcessingNode:
             - /perception/image_processing (sensor_msgs.msg.Image): Processed image data.
 
     Attributes:
+    ===========
+    Attributes:
         rgb_image (sensor_msgs.msg.Image): Stores the latest RGB image received from the camera.
         depth_image (sensor_msgs.msg.Image): Stores the latest Depth image received from the camera.
         processed_image_pub (rospy.Publisher): Publishes the processed image data to the `/perception/image_processing` topic.
 
+    Methods:
+    ========
     Methods:
         __init__():
             Initializes the ROS node, sets up subscribers and publishers, and starts the processing loop.

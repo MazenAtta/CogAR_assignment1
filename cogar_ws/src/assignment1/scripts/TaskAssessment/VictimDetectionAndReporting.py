@@ -147,8 +147,8 @@ class VictimDetectionAndReportingNode:
         self.alert_pub.publish(alert_msg)
         self.victim_location_pub.publish(location_point)
         
-        rospy.loginfo("Published victim alert: %s", alert_msg)
-        rospy.loginfo(f"Published victim location: ({x:.2f}, {y:.2f}, {z:.2f})")
+        rospy.logwarn("Published victim alert: %s", alert_msg)
+        rospy.logwarn(f"Published victim location: ({x:.2f}, {y:.2f}, {z:.2f})")
 
 if __name__ == '__main__':
     try:

@@ -38,7 +38,7 @@ class AudioProcessingNode:
         rospy.loginfo("Audio Processing Node initialized.")
 
         # Subscriber
-        rospy.Subscriber('/microphone/audio', AudioData, self.audio_callback)
+        rospy.Subscriber('/microphone/audio', String, self.audio_callback)
 
         # Publisher
         self.processed_audio_pub = rospy.Publisher('/perception/processed_audio', String, queue_size=10)
@@ -57,25 +57,10 @@ class AudioProcessingNode:
         rospy.loginfo_throttle(5.0, "Received audio data from microphone")
 
     def process_loop(self):
-        if not self.audio_buffer:
-            return  # No data to process
-        
-        # Simple dummy detection - pretend we found something
-        if len(self.audio_buffer) > 5:
-            # Just a dummy result
-            if rospy.get_time() % 30 < 10:  # Randomly detect something every 30 seconds
-                result = "Human voice detected"
-            elif rospy.get_time() % 30 < 20:
-                result = "Structural noise detected"
-            else:
-                result = "No significant audio detected"
                 
-            # Publish result
-            self.processed_audio_pub.publish(result)
-            rospy.loginfo("Audio processing result: %s", result)
-            
-            # Clear buffer after processing
-            self.audio_buffer = []
+        # Publish result
+        self.processed_audio_pub.publish("Human voice detected")
+
 
 if __name__ == '__main__':
     try:

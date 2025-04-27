@@ -119,7 +119,7 @@ class TriageSystemNode:
         visual_status = self.analyze_image_data()
 
         triage_level = self.classify_victim(vocal_status, visual_status)
-        rospy.loginfo(f"Triage Result: {triage_level}")
+        rospy.logwarn(f"Triage Result: {triage_level}")
         self.classification_pub.publish(triage_level)
 
     def ask_question(self, question):
