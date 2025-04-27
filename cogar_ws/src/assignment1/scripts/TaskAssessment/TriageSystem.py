@@ -111,9 +111,7 @@ class TriageSystemNode:
         Assessment_question = self.ask_question("Hello, can you hear me?")
         if not Assessment_question:
             rospy.logwarn("Speaker failed to deliver message.")
-            return
-
-        rospy.sleep(1)
+            
 
         vocal_status = self.analyze_audio_data()
         visual_status = self.analyze_image_data()
