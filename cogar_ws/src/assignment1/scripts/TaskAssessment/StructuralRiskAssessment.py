@@ -6,6 +6,7 @@ from sensor_msgs.msg import Image, Range, LaserScan
 from geometry_msgs.msg import WrenchStamped, PoseStamped
 from assignment1.msg import SensorFusion
 
+
 class StructuralRiskAssessmentNode:
     def __init__(self):
         rospy.init_node('structural_risk_assessment')

@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   message_generation
   message_runtime
+  audio_common_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -77,6 +78,7 @@ generate_messages(
   nav_msgs
   sensor_msgs
   geometry_msgs
+  audio_common_msgs
 )
 
 ################################################
